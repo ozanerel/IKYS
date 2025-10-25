@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
+using IK.MVCUI.Models;
 using Microsoft.AspNetCore.Mvc;
-using MVCUI.Models;
 
-namespace MVCUI.Controllers
+namespace IK.MVCUI.Controllers
 {
     public class HomeController : Controller
     {

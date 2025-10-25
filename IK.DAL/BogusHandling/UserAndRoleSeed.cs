@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IK.DAL.BogusHandling
 {
-    public class UserAndRoleSeed
+    public static class UserAndRoleSeed
     {
         public static void SeedUsersAndRoles(ModelBuilder modelBuilder)
         {

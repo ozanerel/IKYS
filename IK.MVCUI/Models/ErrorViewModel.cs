@@ -1,4 +1,4 @@
-namespace MVCUI.Models
+namespace IK.MVCUI.Models
 {
     public class ErrorViewModel
     {

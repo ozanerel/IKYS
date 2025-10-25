@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IK.BLL\IK.BLL.csproj" />
+    <ProjectReference Include="..\IK.CONF\IK.CONF.csproj" />
+    <ProjectReference Include="..\IK.DAL\IK.DAL.csproj" />
+    <ProjectReference Include="..\IK.ENTITIES\IK.ENTITIES.csproj" />
+  </ItemGroup>
+
+</Project>

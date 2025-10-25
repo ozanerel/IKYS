@@ -14,7 +14,7 @@ namespace IK.ENTITIES.Models
         public string Address { get; set; }
 
         //Relational Properties
-        public ICollection<Departmant> Departmants { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Departmant> Departmants { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

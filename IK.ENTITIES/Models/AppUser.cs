@@ -19,7 +19,7 @@ namespace IK.ENTITIES.Models
         public DataStatus Status { get; set; }
 
         //Relational Properties
-        public AppUserProfile AppUserProfile { get; set; }
+        public virtual AppUserProfile AppUserProfile { get; set; }
         public virtual Employee Employee { get; set; }
 
 

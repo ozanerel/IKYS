@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IK.CONF\IK.CONF.csproj" />
+    <ProjectReference Include="..\IK.ENTITIES\IK.ENTITIES.csproj" />
   </ItemGroup>
 
   <ItemGroup>

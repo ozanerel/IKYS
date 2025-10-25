@@ -17,6 +17,9 @@ namespace IK.CONF.Options
             builder.Property(x => x.TCKN).HasMaxLength(11);
             builder.Property(x => x.Salary).HasColumnType("money");
 
+            builder.HasOne(x => x.Departmant).WithMany(x => x.Employees).HasForeignKey(x => x.DepartmanId).OnDelete(DeleteBehavior.Restrict);//Cascade delete hatası olduğu için bu kodu ekledik(Bu durumda departman silinse bile çalışanlar silinmemiş olur)
+            builder.HasOne(x => x.Position).WithMany(x => x.Employees).HasForeignKey(x => x.PositionId).OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(x => x.Departmant).WithMany(x => x.Employees).HasForeignKey(x => x.DepartmanId);
             builder.HasOne(x => x.Branch).WithMany(x => x.Employees).HasForeignKey(x => x.BranchId);
             builder.HasOne(x => x.Position).WithMany(x => x.Employees).HasForeignKey(x => x.PositionId);

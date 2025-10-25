@@ -17,8 +17,8 @@ namespace IK.ENTITIES.Models
         public int DepartmantId { get; set; }
 
         //Relational Properties
-        public Departmant Departmant { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public virtual Departmant Departmant { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
     }
 }

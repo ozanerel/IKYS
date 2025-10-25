@@ -1,17 +1,18 @@
 using IK.BLL.DependencyResolvers;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole(); //Db update hatasý aldýðým için loglarý konsola yazdýrmamýz için iki kodu yazdýk
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContextService();
+builder.Services.AddDbContextService(builder.Configuration);
 builder.Services.AddIdentityService();
 //builder.Services.AddRepositoryService();
 //builder.Services.AddManagerService();
 //builder.Services.AddHttpClient();
-
-builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
 
@@ -28,7 +29,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

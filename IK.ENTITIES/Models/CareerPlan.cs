@@ -17,9 +17,9 @@ namespace IK.ENTITIES.Models
         public int TargetPositionId { get; set; }
 
         //Relational Properties
-        public Employee Employee { get; set; }
-        public Position CurrentPosition { get; set; }
-        public Position TargetPosition { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Position CurrentPosition { get; set; }
+        public virtual Position TargetPosition { get; set; }
 
     }
 

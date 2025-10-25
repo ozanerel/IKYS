@@ -22,7 +22,7 @@ namespace IK.ENTITIES.Models
 
 
         //Relational Properties
-        public Position Position { get; set; }
+        public virtual Position Position { get; set; }
 
     }
 }

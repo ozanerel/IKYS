@@ -15,8 +15,8 @@ namespace IK.ENTITIES.Models
         public int BranchId { get; set; }
 
         //Relational Properties
-        public Branch Branch { get; set; }
-        public ICollection<Employee> Employees { get; set; }
-        public ICollection<Position> Positions { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Position> Positions { get; set; }
     }
 }

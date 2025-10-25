@@ -4,15 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IK.ENTITIES.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IK.CONF.Options
 {
-    public class CareerPlanConfiguration:BaseConfiguration<CareerPlan>
+    public class CareerPlanConfiguration : BaseConfiguration<CareerPlan>
     {
         public override void Configure(EntityTypeBuilder<CareerPlan> builder)
         {
             base.Configure(builder);
+            builder.HasOne(x => x.CurrentPosition)
+                    .WithMany()
+                    .HasForeignKey(x => x.CurrentPositionId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            // TargetPosition ilişkisi - restrict yap
+            builder.HasOne(x => x.TargetPosition)
+                   .WithMany()
+                   .HasForeignKey(x => x.TargetPositionId)
+                   .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Employee).WithMany(x => x.CareerPlans).HasForeignKey(x => x.EmployeeId);
         }
     }

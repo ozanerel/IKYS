@@ -18,7 +18,7 @@ namespace IK.ENTITIES.Models
         public int EmployeeId { get; set; }
 
         //Relational Properties
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
 
     }
 }

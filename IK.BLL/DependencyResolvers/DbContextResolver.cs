@@ -12,11 +12,11 @@ namespace IK.BLL.DependencyResolvers
 {
     public static class DbContextResolver
     {
-        public static void AddDbContextService(this IServiceCollection services)
+        public static void AddDbContextService(this IServiceCollection services,IConfiguration configuration)
         {
-            ServiceProvider provider = services.BuildServiceProvider();
+            //ServiceProvider provider = services.BuildServiceProvider();
 
-            IConfiguration configuration = provider.GetRequiredService<IConfiguration>();
+            //configuration = provider.GetRequiredService<IConfiguration>();
 
 
             services.AddDbContext<MyContext>(x => x.UseSqlServer(configuration.GetConnectionString("MyConnection")).UseLazyLoadingProxies());

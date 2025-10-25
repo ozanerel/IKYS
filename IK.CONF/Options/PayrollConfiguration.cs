@@ -16,6 +16,7 @@ namespace IK.CONF.Options
             base.Configure(builder);
             builder.Property(x => x.GrossSalary).IsRequired().HasColumnType("money");
             builder.Property(x => x.NetSalary).IsRequired().HasColumnType("money");
+            builder.Property(x => x.Bonuses).IsRequired().HasColumnType("money");
 
             builder.HasOne(x => x.Employee).WithMany(x => x.Payrolls).HasForeignKey(x => x.EmployeeId);
         }

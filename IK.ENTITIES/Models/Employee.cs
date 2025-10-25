@@ -7,7 +7,7 @@ using IK.ENTITIES.Enums;
 
 namespace IK.ENTITIES.Models
 {
-    public class Employee:BaseEntity
+    public class Employee : BaseEntity
     {
         //Çalışan
         public string FirstName { get; set; }
@@ -30,14 +30,14 @@ namespace IK.ENTITIES.Models
         public int BranchId { get; set; }
 
         //Relational Properties
-        public AppUser AppUser { get; set; }
-        public Departmant Departmant{ get; set; }
-        public Position Position { get; set; }
-        public Branch Branch { get; set; }
-        public ICollection<Payroll> Payrolls { get; set; }
-        public ICollection<WorkHour> WorkHours { get; set; }
-        public ICollection<CareerPlan> CareerPlans { get; set; }
-        public EmployeeQualification EmployeeQualification { get; set; }
+        public virtual AppUser AppUser { get; set; }
+        public virtual Departmant Departmant{ get; set; }
+        public virtual Position Position { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual ICollection<Payroll> Payrolls { get; set; }
+        public virtual ICollection<WorkHour> WorkHours { get; set; }
+        public virtual ICollection<CareerPlan> CareerPlans { get; set; }
+        public virtual EmployeeQualification EmployeeQualification { get; set; }
 
     }
 }
