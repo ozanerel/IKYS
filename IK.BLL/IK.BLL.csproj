@@ -18,8 +18,4 @@
     <ProjectReference Include="..\IK.ENTITIES\IK.ENTITIES.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Managers\" />
-  </ItemGroup>
-
 </Project>
