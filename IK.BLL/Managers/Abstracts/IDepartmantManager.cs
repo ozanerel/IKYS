@@ -9,5 +9,7 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IDepartmantManager:IManager<Departmant>
     {
+        Task AddEmployeeToDepartmantAsync(int employeeId, int departmantId);
+        Task<List<Position>> GetPositionsInDepartmantAsync(int departmantId);
     }
 }

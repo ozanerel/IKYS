@@ -9,5 +9,9 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IBranchManager:IManager<Branch>
     {
+        Task ActiveBranchAsync(int id);
+        Task AssignEmployeeToBranchAsync(int employeeId,int branchId);
+        Task<List<Employee>> GetEmployeesByBranchAsync(int branchId);
+        Task AddDepartmantToBranchAsync(int branchId, Departmant departmant);
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IK.BLL.Managers.Abstracts;
 using IK.DAL.Repositories.Abstracts;
+using IK.ENTITIES.Enums;
 using IK.ENTITIES.Models;
 
 namespace IK.BLL.Managers.Concretes
@@ -17,6 +18,17 @@ namespace IK.BLL.Managers.Concretes
             _repository = repository;
             
             
+        }
+
+        public async Task ApproveCareerPlanAsync(int id)
+        {
+            //Kariyeri planını onaylar.
+            var plan = await _repository.GetByIdAsync(id);
+            if (plan == null) return;
+
+            plan.Status = DataStatus.Approved;
+            plan.UpdatedDate = DateTime.Now;
+            await _repository.UpdateAsync(plan, plan);
         }
     }
 }

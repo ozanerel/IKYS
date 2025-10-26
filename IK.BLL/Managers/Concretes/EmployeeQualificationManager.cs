@@ -16,5 +16,14 @@ namespace IK.BLL.Managers.Concretes
         {
             _repository = repository;
         }
+
+        public async Task addCertificationasync(int qualificationId, string certificationName)
+        {
+            var qualification = await _repository.GetByIdAsync(qualificationId);
+            if(qualification == null) return;
+
+            qualification.Certifications += $", {certificationName}";
+            await _repository.UpdateAsync(qualification, qualification);
+        }
     }
 }

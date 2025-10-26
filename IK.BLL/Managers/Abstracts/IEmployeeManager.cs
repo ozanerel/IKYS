@@ -9,5 +9,7 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IEmployeeManager:IManager<Employee>
     {
+        Task ChangeDepartmentASync(int employeeId, int newDepartmantId);
+        Task UpdateSalaryAsync(int employeeId, decimal newSalary);
     }
 }

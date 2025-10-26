@@ -12,9 +12,22 @@ namespace IK.BLL.Managers.Concretes
     public class PositionManager:BaseManager<Position>, IPositionManager
     {
         readonly IPositionRepository _repository;
-        public PositionManager(IPositionRepository repository):base(repository)
+        readonly IEmployeeRepository _employeeRepository;
+        public PositionManager(IPositionRepository repository,IEmployeeRepository employeeRepository):base(repository)
         {
             _repository = repository;
+            _employeeRepository = employeeRepository;
+        }
+
+        public async Task AssignEmployeeToPositionAsync(int employeeId, int positionId)
+        {
+            var employee = await _employeeRepository.GetByIdAsync(employeeId);
+            if (employee == null) return;
+
+            employee.PositionId = positionId;
+            employee.UpdatedDate = DateTime.Now;
+            await _employeeRepository.UpdateAsync(employee, employee);
+
         }
     }
 }

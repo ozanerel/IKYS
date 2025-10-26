@@ -7,6 +7,8 @@ using IK.BLL.Managers.Abstracts;
 using IK.DAL.Repositories.Abstracts;
 using IK.ENTITIES.Enums;
 using IK.ENTITIES.Models;
+using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace IK.BLL.Managers.Concretes
 {
@@ -22,43 +24,58 @@ namespace IK.BLL.Managers.Concretes
         // Başvuru onayla
         public async Task ApproveApplicationAsync(int id)
         {
-            var original = await _repository.GetByIdAsync(id);
-            if (original != null)
-            {
-                var updated = original;
-                updated.ApplicationStatus = ApplicationStatus.Approved;
-                updated.Status = DataStatus.Approved;
-                updated.UpdatedDate = DateTime.Now;
-                await _repository.UpdateAsync(original,updated);
-            }
+            var app = await _repository.GetByIdAsync(id);
+            if (app == null) return;
+
+            app.ApplicationStatus = ApplicationStatus.Approved;
+            app.Status = DataStatus.Approved;
+            await _repository.UpdateAsync(app, app);
+        }
+
+        public async Task<List<JobApplication>> GetApplicationsByPositionAsync(int positionId)
+        {
+            return await _repository
+                .Where(x => x.PositionId == positionId)
+                .Include(x => x.Position)
+                .ToListAsync();
         }
 
         // Başvuruyu reddet
         public async Task RejectApplicationAsync(int id)
         {
-            var original = await _repository.GetByIdAsync(id);
-            if (original != null)
-            {
-                var updated = original;
-                updated.ApplicationStatus = ApplicationStatus.Rejected;
-                updated.Status = DataStatus.Approved;
-                updated.UpdatedDate = DateTime.Now;
-                await _repository.UpdateAsync(original, updated);
-            }
+            var app = await _repository.GetByIdAsync(id);
+            if (app == null) return;
+
+            app.ApplicationStatus = ApplicationStatus.Rejected;
+            app.Status = DataStatus.Passive;
+            await _repository.UpdateAsync(app, app);
         }
 
         // Başvuru beklemeye al
         public async Task SetPendingAsync(int id)
         {
-            var original = await _repository.GetByIdAsync(id);
-            if (original != null)
-            {
-                var updated = original;
-                updated.ApplicationStatus = ApplicationStatus.Pending;
-                updated.Status = DataStatus.Approved;
-                updated.UpdatedDate = DateTime.Now;
-                await _repository.UpdateAsync(original, updated);
-            }
+            var app = await _repository.GetByIdAsync(id);
+            if (app == null) return;
+
+            app.ApplicationStatus = ApplicationStatus.Pending;
+            app.Status = DataStatus.Pending;
+            await _repository.UpdateAsync(app, app);
+        }
+
+        public async Task UploadCvAsync(int id, string filePath)
+        {
+            var app = await _repository.GetByIdAsync(id);
+            if (app == null)
+                throw new Exception("Başvuru bulunamadı.");
+
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new Exception("CV dosya yolu geçersiz.");
+
+            app.CVFilePath = filePath;
+            app.Status = DataStatus.Updated;
+            app.UpdatedDate = DateTime.Now;
+
+            await _repository.UpdateAsync(app, app);
         }
     }
 }

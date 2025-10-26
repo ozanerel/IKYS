@@ -9,5 +9,6 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IReportManager:IManager<Report>
     {
+        Task<List<Report>> MontlhyReportsAsync(int month,int year);
     }
 }

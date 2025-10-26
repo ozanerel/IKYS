@@ -9,5 +9,6 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IEmployeeQualificationManager:IManager<EmployeeQualification>
     {
+        Task addCertificationasync(int qualificationId,string certificationName);
     }
 }

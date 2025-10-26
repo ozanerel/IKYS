@@ -9,5 +9,6 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IPositionManager:IManager<Position>
     {
+        Task AssignEmployeeToPositionAsync(int employeeId, int positionId);
     }
 }

@@ -9,5 +9,6 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface ICareerPlanManager:IManager<CareerPlan>
     {
+        Task ApproveCareerPlanAsync(int id);
     }
 }

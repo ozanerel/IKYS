@@ -16,5 +16,11 @@ namespace IK.BLL.Managers.Concretes
         {
             _repository = repository;
         }
+
+        public async Task<List<Report>> MontlhyReportsAsync(int month, int year)
+        {
+            var allReports = await _repository.GetAllAsync();
+            return allReports.Where(r => r.CreatedDate.Month == month && r.CreatedDate.Year == year).ToList();
+        }
     }
 }

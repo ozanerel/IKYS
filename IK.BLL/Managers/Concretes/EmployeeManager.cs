@@ -16,5 +16,23 @@ namespace IK.BLL.Managers.Concretes
         {
             _repository = repository;
         }
+
+        public async Task ChangeDepartmentASync(int employeeId, int newDepartmantId)
+        {
+            var employee =await _repository.GetByIdAsync(employeeId);
+            if (employee == null) return;
+
+            employee.DepartmanId = newDepartmantId;
+            await _repository.UpdateAsync(employee, employee);
+        }
+
+        public async Task UpdateSalaryAsync(int employeeId, decimal newSalary)
+        {
+            var employee = await _repository.GetByIdAsync(employeeId);
+            if (employee == null) return;
+
+            employee.Salary = newSalary;
+            await _repository.UpdateAsync(employee, employee);
+        }
     }
 }
