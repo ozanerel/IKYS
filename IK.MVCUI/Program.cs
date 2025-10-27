@@ -1,4 +1,5 @@
 using IK.BLL.DependencyResolvers;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -13,6 +14,12 @@ builder.Services.AddIdentityService();
 builder.Services.AddRepositoryService();
 builder.Services.AddManagerService();
 builder.Services.AddHttpClient();
+
+//Dosya yükleme limiti
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 50 * 1024 * 1024; // 50 MB
+});
 
 var app = builder.Build();
 
@@ -32,9 +39,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=JobApplication}/{action=Index}/{id?}");
 
 app.Run();

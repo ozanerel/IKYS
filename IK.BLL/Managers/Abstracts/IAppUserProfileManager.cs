@@ -9,5 +9,6 @@ namespace IK.BLL.Managers.Abstracts
 {
     public interface IAppUserProfileManager:IManager<AppUserProfile>
     {
+        Task UpdateProfilePhotoAsync(int profileId, string photoPath);
     }
 }

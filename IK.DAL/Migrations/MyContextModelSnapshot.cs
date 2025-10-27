@@ -115,16 +115,16 @@ namespace IK.DAL.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             ActivationCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                            ConcurrencyStamp = "9b7b44a9-6ce8-4acf-8010-cdaf2cf90b09",
+                            ConcurrencyStamp = "6f753597-8072-4e81-89b7-3c57f7da23aa",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ozan@ik.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OZAN@IK.COM",
                             NormalizedUserName = "OZAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAECRcxhLXIOYFs8w+Dm8xzSx9ntaU2p93IssAolnM+yfzbmTos1F3/haHlcSYSoQf6g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI2nw0A7vxfJpO7WDH7rN1jYvsD6y0SJMHYn2ChVJ+bGNj71mb7QrOanHCJWz2aJ/w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d3f394b5-3913-4158-b425-92f396f5daaf",
+                            SecurityStamp = "45cf9798-f18a-4a44-a2ca-5a5a4ef26606",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "ozan"
@@ -134,16 +134,16 @@ namespace IK.DAL.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             ActivationCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                            ConcurrencyStamp = "f0ab04cf-c629-49b6-baa7-a9ad13530194",
+                            ConcurrencyStamp = "0e0441f2-16f0-48a7-81f4-9607733ee8c7",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ahmet@ik.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "AHMET@IK.COM",
                             NormalizedUserName = "AHMET",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAWOS+G0lmjdDY2ApjeT652h3i7hEMhTZ1KwiYaFGZBr3jn6k2T46KmfTaOUjUEiug==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEByv16AmNw5uxr9RnrpK/7WeuBjvNNXd3Ak5HkUR6XgNXS3HgVjNttSRioQxWrS96g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a3d4946f-355a-4cf6-acbf-a196ae588e44",
+                            SecurityStamp = "912fbd87-6af1-4c71-91f9-3b08a1398c8f",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "ahmet"
@@ -177,6 +177,9 @@ namespace IK.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -722,14 +725,14 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "f6e6c04e-c446-4a0a-8f2a-3f0e0c9a9954",
+                            ConcurrencyStamp = "0e2dff10-e5cc-4bb1-9751-c8cc12774c4f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "99e64a30-e511-4ca5-be9b-ee1f3a5a7f64",
+                            ConcurrencyStamp = "90c4c81b-680f-4e31-ad85-fece8c6c9758",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

@@ -16,5 +16,15 @@ namespace IK.BLL.Managers.Concretes
         {
             _repository = repository;
         }
+
+        public async Task UpdateProfilePhotoAsync(int profileId, string photoPath)
+        {
+            var profile = await _repository.GetByIdAsync(profileId);
+            if (profile == null) return;
+
+            profile.PhotoPath =  photoPath;
+            profile.UpdatedDate = DateTime.Now;
+            await _repository.UpdateAsync(profile, profile);
+        }
     }
 }
