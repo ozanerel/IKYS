@@ -1,0 +1,39 @@
+﻿<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Ana Menü</div>
+
+                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Admin Dashboard
+                </a>
+
+                <a class="nav-link" asp-area="Employee" asp-controller="Home" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Employee Paneli
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Modüller</div>
+                <a class="nav-link" asp-area="Admin" asp-controller="Employee" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Çalışanlar
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="JobApplication" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                    Başvurular
+                </a>
+
+                <a class="nav-link" asp-area="Admin" asp-controller="Position" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                    Pozisyonlar
+                </a>
+
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Giriş Yapan:</div>
+            @User.Identity.Name
+        </div>
+    </nav>
+</div>

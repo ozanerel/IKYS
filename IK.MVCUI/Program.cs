@@ -21,6 +21,19 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = 50 * 1024 * 1024; // 50 MB
 });
 
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.Cookie = new CookieBuilder
+    {
+        Name = "IKYS_Cookie",//Cookie ismi
+
+    };
+    x.LoginPath = "/Login/Login"; //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
+    x.AccessDeniedPath = new PathString("/Home/AccessDenied");//Rolü uygun deðilse gönderilecek alan
+    x.SlidingExpiration = true;//Cookie nin ömrü dolmak üzereyken yenilenmesini saðlar
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(1);//Cookie nin ömrü 1 dk. Bu cookie browserdan silinecek tekrar giriþ yapýlmasý gerekecek
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
