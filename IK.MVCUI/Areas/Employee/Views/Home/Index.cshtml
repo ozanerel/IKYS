@@ -1,63 +1,10 @@
-﻿@model IK.ENTITIES.Models.Employee
-@{
-    ViewData["Title"] = "Çalışan Paneli";
+﻿@{
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
+    ViewData["Title"] = "Çalışan Paneli";
 }
 
-<div class="container-fluid px-4">
-    <h2 class="mt-4">Hoş geldin, @ViewBag.FullName 👋</h2>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Kişisel Bilgiler</li>
-    </ol>
+<h2 class="mt-4">Hoş geldiniz, Çalışan</h2>
 
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    Şube: @ViewBag.Branch <br />
-                    Departman: @ViewBag.Department <br />
-                    Pozisyon: @ViewBag.Position
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    Toplam Maaş: ₺@ViewBag.TotalSalary
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card bg-warning text-white">
-                <div class="card-body">
-                    Bu Ay Çalışma Saati: @ViewBag.TotalWorkHours saat
-                </div>
-            </div>
-        </div>
-    </div>
+<p>Burası çalışan panelidir.</p>
 
-    <h4>Bordro Bilgileri</h4>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Dönem</th>
-                <th>Brüt Maaş</th>
-                <th>Net Maaş</th>
-                <th>Prim</th>
-                <th>Kesinti</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var payroll in Model.Payrolls)
-            {
-                <tr>
-                    <td>@payroll.Period</td>
-                    <td>₺@payroll.GrossSalary</td>
-                    <td>₺@payroll.NetSalary</td>
-                    <td>₺@payroll.Bonuses</td>
-                    <td>₺@payroll.Deductions</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<a asp-area="Employee" asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>

@@ -1,5 +1,6 @@
 using IK.BLL.DependencyResolvers;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -28,10 +29,12 @@ builder.Services.ConfigureApplicationCookie(x =>
         Name = "IKYS_Cookie",//Cookie ismi
 
     };
-    x.LoginPath = "/Login/Login"; //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
+    x.LoginPath ="/Account/Login"; //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
+    x.LogoutPath =new PathString ("/Account/Logout"); //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
     x.AccessDeniedPath = new PathString("/Home/AccessDenied");//Rolü uygun deðilse gönderilecek alan
     x.SlidingExpiration = true;//Cookie nin ömrü dolmak üzereyken yenilenmesini saðlar
     x.ExpireTimeSpan = TimeSpan.FromMinutes(1);//Cookie nin ömrü 1 dk. Bu cookie browserdan silinecek tekrar giriþ yapýlmasý gerekecek
+    x.ReturnUrlParameter = "returnUrl";
 });
 
 var app = builder.Build();
@@ -52,13 +55,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
+});
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=JobApplication}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
