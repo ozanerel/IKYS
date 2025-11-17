@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IK.DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20251027083453_Mg1")]
+    [Migration("20251117144104_Mg1")]
     partial class Mg1
     {
         /// <inheritdoc />
@@ -118,16 +118,16 @@ namespace IK.DAL.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             ActivationCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                            ConcurrencyStamp = "6f753597-8072-4e81-89b7-3c57f7da23aa",
+                            ConcurrencyStamp = "c9be9bc5-b3c2-4e02-a762-98c1d4acddef",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ozan@ik.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OZAN@IK.COM",
                             NormalizedUserName = "OZAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI2nw0A7vxfJpO7WDH7rN1jYvsD6y0SJMHYn2ChVJ+bGNj71mb7QrOanHCJWz2aJ/w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJAA1gAJJCI/IxvIHbFCV/MNdE02QHqEcoWg1mey1Zepw6LPd5DHYnivrgDoUOVMcw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "45cf9798-f18a-4a44-a2ca-5a5a4ef26606",
+                            SecurityStamp = "cc807379-c83a-47a0-8365-0f67295bc3d6",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "ozan"
@@ -137,16 +137,16 @@ namespace IK.DAL.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             ActivationCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                            ConcurrencyStamp = "0e0441f2-16f0-48a7-81f4-9607733ee8c7",
+                            ConcurrencyStamp = "8683b111-7a15-4b08-b6d3-4c33a75cb478",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ahmet@ik.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "AHMET@IK.COM",
                             NormalizedUserName = "AHMET",
-                            PasswordHash = "AQAAAAIAAYagAAAAEByv16AmNw5uxr9RnrpK/7WeuBjvNNXd3Ak5HkUR6XgNXS3HgVjNttSRioQxWrS96g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGtwHyNIUJO19VVLbea1meq/eoTAYgKK80pLu/SCIsWJ5dBdJDdfmrMovRB3T5Xa1Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "912fbd87-6af1-4c71-91f9-3b08a1398c8f",
+                            SecurityStamp = "588d9ac6-9555-4d81-941f-5fc1dd906f26",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "ahmet"
@@ -236,6 +236,26 @@ namespace IK.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Branches");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "İstanbul Kadıköy",
+                            BranchName = "Merkez Şube",
+                            City = "İstanbul",
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7579),
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Ankara Etimesgut",
+                            BranchName = "Ankara Şube",
+                            City = "Ankara",
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7593),
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.CareerPlan", b =>
@@ -283,6 +303,30 @@ namespace IK.DAL.Migrations
                     b.HasIndex("TargetPositionId");
 
                     b.ToTable("CareerPlans");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7744),
+                            CurrentPositionId = 1,
+                            EmployeeId = 1,
+                            Notes = "Başarılı performans",
+                            PlannedPromotionDate = new DateTime(2026, 5, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7745),
+                            Status = 1,
+                            TargetPositionId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7757),
+                            CurrentPositionId = 2,
+                            EmployeeId = 2,
+                            Notes = "Tecrübeyi artıracak",
+                            PlannedPromotionDate = new DateTime(2026, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7759),
+                            Status = 1,
+                            TargetPositionId = 2
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.Departmant", b =>
@@ -323,6 +367,26 @@ namespace IK.DAL.Migrations
                     b.HasIndex("BranchId");
 
                     b.ToTable("Departmants");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BranchId = 1,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7809),
+                            DepartmantName = "İK",
+                            Description = "İnsan Kaynakları",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BranchId = 2,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7811),
+                            DepartmantName = "Yazılım",
+                            Description = "Yazılım Geliştirme",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.Employee", b =>
@@ -416,6 +480,52 @@ namespace IK.DAL.Migrations
                     b.HasIndex("PositionId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "İstanbul",
+                            AppUserId = 1,
+                            BirthDate = new DateTime(2002, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BranchId = 1,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7908),
+                            DepartmanId = 1,
+                            Email = "ozan@ik.com",
+                            FirstName = "Ozan",
+                            Gender = 1,
+                            JobType = 1,
+                            LastName = "Erel",
+                            MaritalStatus = 1,
+                            PhoneNumber = "05000000001",
+                            PositionId = 1,
+                            Salary = 10000m,
+                            StartDate = new DateTime(2023, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7916),
+                            Status = 1,
+                            TCKN = "12345678901"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Ankara",
+                            AppUserId = 2,
+                            BirthDate = new DateTime(1992, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BranchId = 2,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7920),
+                            DepartmanId = 2,
+                            Email = "ahmet@ik.com",
+                            FirstName = "Ahmet",
+                            Gender = 1,
+                            JobType = 1,
+                            LastName = "Baykara",
+                            MaritalStatus = 2,
+                            PhoneNumber = "05000000002",
+                            PositionId = 2,
+                            Salary = 9000m,
+                            StartDate = new DateTime(2024, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7924),
+                            Status = 1,
+                            TCKN = "12345678902"
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.EmployeeQualification", b =>
@@ -470,6 +580,34 @@ namespace IK.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeQualifications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Certifications = "İK Sertifikası",
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7867),
+                            Education = "Üniversite",
+                            EducationLevel = 3,
+                            EmployeeId = 1,
+                            Experience = "2 yıl",
+                            Languages = "İngilizce",
+                            Skills = "MS Office",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Certifications = "MCP",
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7870),
+                            Education = "Üniversite",
+                            EducationLevel = 3,
+                            EmployeeId = 2,
+                            Experience = "3 yıl",
+                            Languages = "İngilizce",
+                            Skills = "C#, ASP.NET",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.JobApplication", b =>
@@ -522,6 +660,34 @@ namespace IK.DAL.Migrations
                     b.HasIndex("PositionId");
 
                     b.ToTable("JobApplications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApplicantName = "Mehmet Demir",
+                            ApplicateDate = new DateTime(2025, 11, 7, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7968),
+                            ApplicationStatus = 1,
+                            CVFilePath = "CVs/MehmetDemir.pdf",
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7966),
+                            Email = "mehmet@example.com",
+                            PhoneNumber = "05001112233",
+                            PositionId = 2,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApplicantName = "Ayşe Yılmaz",
+                            ApplicateDate = new DateTime(2025, 11, 12, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7975),
+                            ApplicationStatus = 2,
+                            CVFilePath = "CVs/AyseYilmaz.pdf",
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(7974),
+                            Email = "ayse@example.com",
+                            PhoneNumber = "05004445566",
+                            PositionId = 1,
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.Payroll", b =>
@@ -568,6 +734,32 @@ namespace IK.DAL.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Payrolls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Bonuses = 500m,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(8015),
+                            Deductions = 500m,
+                            EmployeeId = 1,
+                            GrossSalary = 10000m,
+                            NetSalary = 9000m,
+                            Period = "2025-11",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Bonuses = 300m,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(8018),
+                            Deductions = 400m,
+                            EmployeeId = 2,
+                            GrossSalary = 9000m,
+                            NetSalary = 8200m,
+                            Period = "2025-11",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.Position", b =>
@@ -617,6 +809,32 @@ namespace IK.DAL.Migrations
                     b.HasIndex("DepartmantId");
 
                     b.ToTable("Positions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(8067),
+                            DepartmantId = 1,
+                            MaxSalary = 12000m,
+                            MinSalary = 8000m,
+                            PositionName = "İK Uzmanı",
+                            RequiredEducation = "Üniversite",
+                            RequiredExperience = "2 yıl",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(8070),
+                            DepartmantId = 2,
+                            MaxSalary = 15000m,
+                            MinSalary = 9000m,
+                            PositionName = "Yazılım Geliştirici",
+                            RequiredEducation = "Üniversite",
+                            RequiredExperience = "3 yıl",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("IK.ENTITIES.Models.Report", b =>
@@ -693,6 +911,28 @@ namespace IK.DAL.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("WorkHours");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(8131),
+                            EmployeeId = 1,
+                            EntryTime = new DateTime(2025, 11, 17, 9, 0, 0, 0, DateTimeKind.Local),
+                            ExitTime = new DateTime(2025, 11, 17, 18, 0, 0, 0, DateTimeKind.Local),
+                            Status = 1,
+                            TotalHours = 9m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 11, 17, 17, 41, 4, 431, DateTimeKind.Local).AddTicks(8139),
+                            EmployeeId = 2,
+                            EntryTime = new DateTime(2025, 11, 17, 9, 0, 0, 0, DateTimeKind.Local),
+                            ExitTime = new DateTime(2025, 11, 17, 18, 0, 0, 0, DateTimeKind.Local),
+                            Status = 1,
+                            TotalHours = 9m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -728,14 +968,14 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "0e2dff10-e5cc-4bb1-9751-c8cc12774c4f",
+                            ConcurrencyStamp = "509506b7-8f17-4b5b-8aa6-be6e99a18ca9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "90c4c81b-680f-4e31-ad85-fece8c6c9758",
+                            ConcurrencyStamp = "35c00cf0-f045-4346-b60d-f0d498c7f622",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

@@ -36,6 +36,15 @@ namespace IK.DAL.ContextClasses
             builder.ApplyConfiguration(new WorkHourConfiguration());
 
             UserAndRoleSeed.SeedUsersAndRoles(builder);
+            BranchSeed.SeedBranches(builder);
+            CareerPlanSeed.SeedCareerPlans(builder);
+            DepartmantSeed.SeedDepartmants(builder);
+            EmployeeQualificationSeed.SeedEmployeeQualifications(builder);
+            EmployeeSeed.SeedEmployees(builder);
+            JobApplicationSeed.SeedJobApplications(builder);
+            PayrollSeed.SeedPayrolls(builder);
+            PositionSeed.SeedPositions(builder);
+            WorkHourSeed.SeedWorkHours(builder);
 
         }
 

@@ -24,8 +24,8 @@ namespace IK.MVCUI.Areas.Employee.Controllers
             var user = await _userManager.GetUserAsync(User);
             var employee = await _context.Employees.Include(e => e.Position).FirstOrDefaultAsync(e => e.Email == user.Email);
 
-            //ViewBag.FullName = $"{employee.FirstName} {employee.LastName}";
-            //ViewBag.Position = employee.Position?.PositionName ?? "Atanmamış";
+            ViewBag.FullName = $"{employee.FirstName} {employee.LastName}";
+            ViewBag.Position = employee.Position?.PositionName ?? "Atanmamış";
             return View(employee);
         }
     }
