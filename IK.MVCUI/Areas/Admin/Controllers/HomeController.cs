@@ -15,8 +15,6 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.TotalEmployees = await _context.Employees.CountAsync();
-            ViewBag.PendingApplications = await _context.JobApplications
-                .CountAsync(x => x.ApplicationStatus == IK.ENTITIES.Enums.ApplicationStatus.Pending);
             return View();
         }
     }

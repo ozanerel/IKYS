@@ -30,11 +30,11 @@ builder.Services.ConfigureApplicationCookie(x =>
 
     };
     x.LoginPath ="/Account/Login"; //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
-    x.LogoutPath =new PathString ("/Account/Logout"); //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
+    x.LogoutPath ="/Account/Logout"; //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
     x.AccessDeniedPath = new PathString("/Home/AccessDenied");//Rolü uygun deðilse gönderilecek alan
     x.SlidingExpiration = true;//Cookie nin ömrü dolmak üzereyken yenilenmesini saðlar
     x.ExpireTimeSpan = TimeSpan.FromMinutes(1);//Cookie nin ömrü 1 dk. Bu cookie browserdan silinecek tekrar giriþ yapýlmasý gerekecek
-    x.ReturnUrlParameter = "returnUrl";
+    //x.ReturnUrlParameter = "returnUrl";
 });
 
 var app = builder.Build();
@@ -55,6 +55,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -62,6 +63,7 @@ app.UseEndpoints(endpoints =>
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
 });
+
 
 app.MapControllerRoute(
     name: "default",

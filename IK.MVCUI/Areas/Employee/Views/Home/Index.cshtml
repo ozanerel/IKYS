@@ -1,10 +1,7 @@
-﻿@{
+﻿@model IK.ENTITIES.Models.Employee
+@{
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
     ViewData["Title"] = "Çalışan Paneli";
 }
-
-<h2 class="mt-4">Hoş geldiniz, Çalışan</h2>
-
-<p>Burası çalışan panelidir.</p>
-
-<a asp-area="Employee" asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
+<h2>Merhaba, @ViewBag.FullName 👋</h2>
+<p>Pozisyon: @ViewBag.Position</p>

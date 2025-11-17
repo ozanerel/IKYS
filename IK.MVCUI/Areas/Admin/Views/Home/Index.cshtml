@@ -1,10 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
-    ViewData["Title"] = "Admin Panel";
+    ViewData["Title"] = "Admin Dashboard";
 }
-
-<h2 class="mt-4">Yönetici Paneli</h2>
-<p>Toplam çalışan sayısı: <strong>@ViewBag.TotalEmployees</strong></p>
-<p>Bekleyen başvurular: <strong>@ViewBag.PendingApplications</strong></p>
-
-<a asp-area="Admin" asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
+<h2>Admin Dashboard</h2>
+<p>Toplam Çalışan: @ViewBag.TotalEmployees</p>

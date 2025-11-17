@@ -1,26 +1,50 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using Microsoft.AspNetCore.Identity
+@using IK.ENTITIES.Models
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<!DOCTYPE html>
+<html lang="tr">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewData["Title"] - İKYS</title>
+    <title>@ViewData["Title"] - IKYS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-3">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">İKYS</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" asp-controller="JobApplication" asp-action="Index">Başvuru Yap</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Giriş</a></li>
-                </ul>
-            </div>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">IKYS</a>
+
+            <ul class="navbar-nav ms-auto">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var user = await UserManager.GetUserAsync(User);
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@user.UserName</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                                    <button class="dropdown-item">Çıkış Yap</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                    </li>
+                }
+            </ul>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container">
         @RenderBody()
     </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
