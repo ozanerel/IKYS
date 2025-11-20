@@ -44,7 +44,7 @@ namespace IK.DAL.Repositories.Concretes
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task UpdateAsync(T originalEntity,T newEntity)
+        public async Task UpdateAsync(T originalEntity, T newEntity)
         {
             _dbSet.Entry(originalEntity).CurrentValues.SetValues(newEntity);
             await _context.SaveChangesAsync();

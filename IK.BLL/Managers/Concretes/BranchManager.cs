@@ -30,7 +30,7 @@ namespace IK.BLL.Managers.Concretes
             if (branch == null) return;
 
             branch.Status = DataStatus.Active;
-            await _repository.UpdateAsync(branch, branch);
+            await _repository.UpdateAsync(branch,branch);
         }
 
         public async Task AddDepartmantToBranchAsync(int branchId, Departmant departmant)

@@ -19,7 +19,7 @@ namespace IK.DAL.Repositories.Abstracts
 
         //Commands
         Task CreateAsync(T entity);
-        Task UpdateAsync(T originalEntity, T newEntity);
+        Task UpdateAsync(T originalEntity,T newEntity);
         Task DeleteAsync(T entity);
 
     }
