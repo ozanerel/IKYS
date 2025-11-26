@@ -39,14 +39,14 @@ namespace IK.DAL.Repositories.Concretes
            return await _dbSet.ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task UpdateAsync(T originalEntity, T newEntity)
+        public async Task UpdateAsync(T entity)
         {
-            _dbSet.Entry(originalEntity).CurrentValues.SetValues(newEntity);
+            _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
 

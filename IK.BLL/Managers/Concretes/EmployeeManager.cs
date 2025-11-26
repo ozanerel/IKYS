@@ -23,17 +23,22 @@ namespace IK.BLL.Managers.Concretes
             if (employee == null) return;
 
             employee.DepartmanId = newDepartmantId;
-            await _repository.UpdateAsync(employee, employee);
+            await _repository.UpdateAsync(employee);
         }
 
-        public Task CreateAsync(AppUser? appUser)
+        public async Task CreateAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            await _repository.CreateAsync(employee);
         }
 
-        public Task UpdateAsync(AppUser? appUser)
+        public async Task UpdateAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            //var original = await _repository.GetByIdAsync(employee.Id);
+            //if (original != null)
+            //{
+            //    await _repository.UpdateAsync(original, employee);
+            //}
+            await _repository.UpdateAsync(employee);
         }
 
         public async Task UpdateSalaryAsync(int employeeId, decimal newSalary)
@@ -42,7 +47,7 @@ namespace IK.BLL.Managers.Concretes
             if (employee == null) return;
 
             employee.Salary = newSalary;
-            await _repository.UpdateAsync(employee,employee);
+            await _repository.UpdateAsync(employee);
         }
     }
 }

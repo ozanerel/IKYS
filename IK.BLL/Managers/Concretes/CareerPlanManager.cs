@@ -28,7 +28,7 @@ namespace IK.BLL.Managers.Concretes
 
             plan.Status = DataStatus.Approved;
             plan.UpdatedDate = DateTime.Now;
-            await _repository.UpdateAsync(plan, plan);
+            await _repository.UpdateAsync(plan);
         }
     }
 }

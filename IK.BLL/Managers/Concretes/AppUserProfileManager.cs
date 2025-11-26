@@ -24,7 +24,7 @@ namespace IK.BLL.Managers.Concretes
 
             profile.PhotoPath =  photoPath;
             profile.UpdatedDate = DateTime.Now;
-            await _repository.UpdateAsync(profile,profile);
+            await _repository.UpdateAsync(profile);
         }
     }
 }

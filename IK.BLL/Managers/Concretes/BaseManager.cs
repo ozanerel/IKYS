@@ -56,9 +56,9 @@ namespace IK.BLL.Managers.Concretes
         public async Task MakePassiveAsync(T entity)
         {
             entity.DeletedDate = DateTime.Now;
-            entity.Status = ENTITIES.Enums.DataStatus.Deleted;
+            entity.Status = ENTITIES.Enums.DataStatus.Passive;
             T originalValue = await _repository.GetByIdAsync(entity.Id);
-            await _repository.UpdateAsync(originalValue,entity);
+            await _repository.UpdateAsync(entity);
         }
 
         public async Task<string> DeleteAsync(T entity)
@@ -77,7 +77,14 @@ namespace IK.BLL.Managers.Concretes
             entity.UpdatedDate = DateTime.Now;
             entity.Status = ENTITIES.Enums.DataStatus.Updated;
             T originalValue = await _repository.GetByIdAsync(entity.Id);
-            await _repository.UpdateAsync(originalValue,entity);
+            if (originalValue == null)
+            {
+                return;
+            }
+
+            
+
+            await _repository.UpdateAsync(entity);
         }
 
         public List<T> Where(Expression<Func<T, bool>> exp)

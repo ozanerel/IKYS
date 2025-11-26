@@ -1,0 +1,69 @@
+﻿@model IK.MVCUI.Areas.Admin.Models.PageVms.EmployeeUpdatePageVm
+
+@{
+    ViewData["Title"] = "Çalışanı Güncelle";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<form asp-action="Update" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label>Ad</label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Soyad</label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Maaş</label>
+        <input asp-for="Salary" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Departman</label>
+        <select asp-for="DepartmanId" class="form-select">
+            @foreach (var item in Model.Departmants)
+            {
+                <option value="@item.Id" selected="@(item.Id == Model.DepartmanId)">
+                    @item.DepartmantName
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Pozisyon</label>
+        <select asp-for="PositionId" class="form-select">
+            @foreach (var item in Model.Positions)
+            {
+                <option value="@item.Id" selected="@(item.Id == Model.PositionId)">
+                    @item.PositionName
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Şube</label>
+        <select asp-for="BranchId" class="form-select">
+            @foreach (var item in Model.Branches)
+            {
+                <option value="@item.Id" selected="@(item.Id == Model.BranchId)">
+                    @item.BranchName
+                </option>
+            }
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Güncelle</button>
+</form>

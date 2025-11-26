@@ -29,7 +29,7 @@ namespace IK.BLL.Managers.Concretes
 
             app.ApplicationStatus = ApplicationStatus.Approved;
             app.Status = DataStatus.Approved;
-            await _repository.UpdateAsync(app, app);
+            await _repository.UpdateAsync(app);
         }
 
         public async Task<List<JobApplication>> GetApplicationsByPositionAsync(int positionId)
@@ -48,7 +48,7 @@ namespace IK.BLL.Managers.Concretes
 
             app.ApplicationStatus = ApplicationStatus.Rejected;
             app.Status = DataStatus.Passive;
-            await _repository.UpdateAsync(app, app);
+            await _repository.UpdateAsync(app);
         }
 
         // Başvuru beklemeye al
@@ -59,7 +59,7 @@ namespace IK.BLL.Managers.Concretes
 
             app.ApplicationStatus = ApplicationStatus.Pending;
             app.Status = DataStatus.Pending;
-            await _repository.UpdateAsync(app, app);
+            await _repository.UpdateAsync(app);
         }
 
         public async Task UploadCvAsync(int id, string filePath)
@@ -75,7 +75,7 @@ namespace IK.BLL.Managers.Concretes
             app.Status = DataStatus.Updated;
             app.UpdatedDate = DateTime.Now;
 
-            await _repository.UpdateAsync(app, app);
+            await _repository.UpdateAsync(app);
         }
     }
 }

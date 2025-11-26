@@ -29,7 +29,7 @@ namespace IK.BLL.Managers.Concretes
             if (employee == null) return;
 
             employee.DepartmanId = departmantId;
-            await _employeeRepository.UpdateAsync(employee, employee);
+            await _employeeRepository.UpdateAsync(employee);
         }
 
         public async Task<List<Position>> GetPositionsInDepartmantAsync(int departmantId)

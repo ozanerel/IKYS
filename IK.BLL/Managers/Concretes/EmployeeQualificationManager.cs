@@ -23,7 +23,7 @@ namespace IK.BLL.Managers.Concretes
             if(qualification == null) return;
 
             qualification.Certifications += $", {certificationName}";
-            await _repository.UpdateAsync(qualification, qualification);
+            await _repository.UpdateAsync(qualification);
         }
     }
 }
