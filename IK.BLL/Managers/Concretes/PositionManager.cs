@@ -26,7 +26,7 @@ namespace IK.BLL.Managers.Concretes
 
             employee.PositionId = positionId;
             employee.UpdatedDate = DateTime.Now;
-            await _employeeRepository.UpdateAsync(employee);
+            await _employeeRepository.UpdateAsync(employee,employee);
 
         }
     }

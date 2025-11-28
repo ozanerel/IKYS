@@ -1,60 +1,125 @@
-﻿@model IK.MVCUI.Areas.Admin.Models.PageVms.EmployeeCreatePageVm
+﻿@model EmployeeCreatePageVm
 
 @{
     ViewData["Title"] = "Yeni Çalışan Ekle";
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
-<form asp-action="Create" method="post">
+<h2 class="mb-3">@ViewData["Title"]</h2>
 
-    <div class="mb-3">
-        <label>Ad</label>
-        <input asp-for="FirstName" class="form-control"/>
-    </div>
+<form asp-action="Create" method="post" class="p-4">
 
-    <div class="mb-3">
-        <label>Soyad</label>
-        <input asp-for="LastName" class="form-control"/>
-    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Ad</label>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>Email</label>
-        <input asp-for="Email" class="form-control"/>
-    </div>
+        <div class="col-md-6 mb-3">
+            <label>Soyad</label>
+            <input asp-for="LastName" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>Maaş</label>
-        <input asp-for="Salary" class="form-control"/>
-    </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Kullanıcı Adı</label>
+                <input asp-for="UserName" class="form-control" />
+            </div>
 
-    <div class="mb-3">
-        <label>Departman</label>
-        <select asp-for="DepartmanId" class="form-select">
-            @foreach (var item in Model.Departmants)
-            {
-                <option value="@item.Id">@item.DepartmantName</option>
-            }
-        </select>
-    </div>
+        <div class="col-md-6 mb-3">
+            <label>TCKN</label>
+            <input asp-for="TCKN" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>Pozisyon</label>
-        <select asp-for="PositionId" class="form-select">
-            @foreach (var item in Model.Positions)
-            {
-                <option value="@item.Id">@item.PositionName</option>
-            }
-        </select>
-    </div>
+        <div class="col-md-6 mb-3">
+            <label>Doğum Tarihi</label>
+            <input asp-for="BirthDate" type="date" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>Şube</label>
-        <select asp-for="BranchId" class="form-select">
-            @foreach (var item in Model.Branches)
-            {
-                <option value="@item.Id">@item.BranchName</option>
-            }
-        </select>
+        <div class="col-md-6 mb-3">
+            <label>Cinsiyet</label>
+            <select asp-for="Gender" class="form-select">
+                <option value="0">Erkek</option>
+                <option value="1">Kadın</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Medeni Durum</label>
+            <select asp-for="MaritalStatus" class="form-select">
+                <option value="0">Bekar</option>
+                <option value="1">Evli</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Email</label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Telefon</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label>Adres</label>
+            <textarea asp-for="Address" class="form-control"></textarea>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>İşe Başlama Tarihi</label>
+            <input asp-for="StartDate" type="date" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Maaş</label>
+            <input asp-for="Salary" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Çalışma Tipi</label>
+            <select asp-for="JobType" class="form-select">
+                <option value="0">Tam Zamanlı</option>
+                <option value="1">Yarı Zamanlı</option>
+                <option value="2">Stajyer</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Departman</label>
+            <select asp-for="DepartmanId" class="form-select">
+                @foreach (var item in Model.Departmants)
+                {
+                    <option value="@item.Id">@item.DepartmantName</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Pozisyon</label>
+            <select asp-for="PositionId" class="form-select">
+                @foreach (var item in Model.Positions)
+                {
+                    <option value="@item.Id">@item.PositionName</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Şube</label>
+            <select asp-for="BranchId" class="form-select">
+                @foreach (var item in Model.Branches)
+                {
+                    <option value="@item.Id">@item.BranchName</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Çalışan Şifresi</label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
     </div>
 
     <button class="btn btn-primary">Kaydet</button>

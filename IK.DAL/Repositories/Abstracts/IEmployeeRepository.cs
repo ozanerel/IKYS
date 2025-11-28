@@ -9,5 +9,6 @@ namespace IK.DAL.Repositories.Abstracts
 {
     public interface IEmployeeRepository: IRepository<Employee>
     {
+      
     }
 }

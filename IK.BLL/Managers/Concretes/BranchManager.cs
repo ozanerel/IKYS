@@ -30,7 +30,7 @@ namespace IK.BLL.Managers.Concretes
             if (branch == null) return;
 
             branch.Status = DataStatus.Active;
-            await _repository.UpdateAsync(branch);
+            await _repository.UpdateAsync(branch,branch);
         }
 
         public async Task AddDepartmantToBranchAsync(int branchId, Departmant departmant)
@@ -46,7 +46,7 @@ namespace IK.BLL.Managers.Concretes
 
             employee.BranchId = branchId;
             employee.UpdatedDate = DateTime.Now;
-            await _employeeRepository.UpdateAsync(employee);
+            await _employeeRepository.UpdateAsync(employee,employee);
         }
 
         public async Task<List<Employee>> GetEmployeesByBranchAsync(int branchId)

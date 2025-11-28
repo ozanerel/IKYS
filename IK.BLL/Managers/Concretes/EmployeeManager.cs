@@ -23,7 +23,7 @@ namespace IK.BLL.Managers.Concretes
             if (employee == null) return;
 
             employee.DepartmanId = newDepartmantId;
-            await _repository.UpdateAsync(employee);
+            await _repository.UpdateAsync(employee,employee);
         }
 
         public async Task CreateAsync(Employee employee)
@@ -33,12 +33,21 @@ namespace IK.BLL.Managers.Concretes
 
         public async Task UpdateAsync(Employee employee)
         {
-            //var original = await _repository.GetByIdAsync(employee.Id);
-            //if (original != null)
-            //{
-            //    await _repository.UpdateAsync(original, employee);
-            //}
-            await _repository.UpdateAsync(employee);
+            var original = await _repository.GetByIdAsync(employee.Id);
+            if (original == null) return;
+
+            // izin verilen alanlar
+            original.FirstName = employee.FirstName;
+            original.LastName = employee.LastName;
+            original.Email = employee.Email;
+            original.PhoneNumber = employee.PhoneNumber;
+            original.Salary = employee.Salary;
+            original.DepartmanId = employee.DepartmanId;
+            original.PositionId = employee.PositionId;
+            original.BranchId = employee.BranchId;
+
+            // repository Update original üzerine yazacak
+            await _repository.UpdateAsync(original, employee);
         }
 
         public async Task UpdateSalaryAsync(int employeeId, decimal newSalary)
@@ -47,7 +56,7 @@ namespace IK.BLL.Managers.Concretes
             if (employee == null) return;
 
             employee.Salary = newSalary;
-            await _repository.UpdateAsync(employee);
+            await _repository.UpdateAsync(employee,employee);
         }
     }
 }

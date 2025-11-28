@@ -39,31 +39,47 @@ namespace IK.BLL.Managers.Concretes
 
         }
 
-        public async Task<AppUser> CreateUserWithRoleAsync(string username, string password, string rolename)
+        public async Task<AppUser> CreateUserWithRoleAsync(string username, string email, string password, string roleName)
         {
-            var existingUser = await _repository.GetByUserNameAsync(username);
+            // Kullanıcı var mı kontrolü
+            var existingUser = await _userManager.FindByNameAsync(username);
             if (existingUser != null)
                 throw new Exception("Bu kullanıcı adı zaten mevcut.");
 
+            // Email kontrolü (Identity email zorunlu tutuyor)
+            var existingEmail = await _userManager.FindByEmailAsync(email);
+            if (existingEmail != null)
+                throw new Exception("Bu email zaten kayıtlı.");
+
+            // Yeni user oluştur
             var newUser = new AppUser
             {
                 UserName = username,
+                Email = email,
                 CreatedDate = DateTime.Now,
-                Status = DataStatus.Inserted,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                EmailConfirmed = true // E-posta onayı yok, varsayılan true
+                Status = DataStatus.Inserted,
+                EmailConfirmed = true
             };
 
             var createResult = await _userManager.CreateAsync(newUser, password);
             if (!createResult.Succeeded)
-                throw new Exception(string.Join(", ", createResult.Errors.Select(e => e.Description)));
+            {
+                var errors = string.Join(" | ", createResult.Errors.Select(e => e.Description));
+                throw new Exception("Kullanıcı oluşturulamadı: " + errors);
+            }
 
-            if (!await _roleManager.RoleExistsAsync(rolename))
-                await _roleManager.CreateAsync(new IdentityRole<int>(rolename));
+            // Rol yoksa oluştur
+            if (!await _roleManager.RoleExistsAsync(roleName))
+                await _roleManager.CreateAsync(new IdentityRole<int>(roleName));
 
-            await _userManager.AddToRoleAsync(newUser, rolename);
+            // Role ekle
+            await _userManager.AddToRoleAsync(newUser, roleName);
+
             return newUser;
         }
+
+
 
         public async Task DeleteUserAsync(int userId)
         {

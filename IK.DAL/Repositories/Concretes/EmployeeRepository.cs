@@ -18,18 +18,20 @@ namespace IK.DAL.Repositories.Concretes
             _context = context;
         }
 
-        override public async Task<Employee> GetByIdAsync(int id)
+        public override async Task<Employee> GetByIdAsync(int id)
         {
             return await _context.Employees
                 .Include(e => e.AppUser)
                 .Include(e => e.Departmant)
                 .Include(e => e.Position)
                 .Include(e => e.Branch)
+                .Include(e => e.Payrolls)
+                .Include(e => e.WorkHours)
+                .Include(e => e.EmployeeQualification)
                 .FirstOrDefaultAsync(e => e.Id == id);
-
         }
-        
-    
-            
+
+
+
     }
 }

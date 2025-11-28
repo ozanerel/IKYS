@@ -1,11 +1,13 @@
-﻿@model IK.MVCUI.Areas.Admin.Models.PageVms.EmployeeUpdatePageVm
+﻿@model EmployeeUpdatePageVm
 
 @{
     ViewData["Title"] = "Çalışanı Güncelle";
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
-<form asp-action="Update" method="post">
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<form method="post" asp-route-id="@Model.Id">
 
     <input type="hidden" asp-for="Id" />
 
@@ -25,45 +27,29 @@
     </div>
 
     <div class="mb-3">
+        <label>Telefon</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="mb-3">
         <label>Maaş</label>
         <input asp-for="Salary" class="form-control" />
     </div>
 
     <div class="mb-3">
         <label>Departman</label>
-        <select asp-for="DepartmanId" class="form-select">
-            @foreach (var item in Model.Departmants)
-            {
-                <option value="@item.Id" selected="@(item.Id == Model.DepartmanId)">
-                    @item.DepartmantName
-                </option>
-            }
-        </select>
+        <select asp-for="DepartmanId" asp-items="@(new SelectList(Model.Departmants, "Id", "DepartmantName"))" class="form-select"></select>
     </div>
 
     <div class="mb-3">
         <label>Pozisyon</label>
-        <select asp-for="PositionId" class="form-select">
-            @foreach (var item in Model.Positions)
-            {
-                <option value="@item.Id" selected="@(item.Id == Model.PositionId)">
-                    @item.PositionName
-                </option>
-            }
-        </select>
+        <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "Id", "PositionName"))" class="form-select"></select>
     </div>
 
     <div class="mb-3">
         <label>Şube</label>
-        <select asp-for="BranchId" class="form-select">
-            @foreach (var item in Model.Branches)
-            {
-                <option value="@item.Id" selected="@(item.Id == Model.BranchId)">
-                    @item.BranchName
-                </option>
-            }
-        </select>
+        <select asp-for="BranchId" asp-items="@(new SelectList(Model.Branches, "Id", "BranchName"))" class="form-select"></select>
     </div>
 
-    <button class="btn btn-primary">Güncelle</button>
+    <button class="btn btn-primary">Kaydet</button>
 </form>

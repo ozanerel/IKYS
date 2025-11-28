@@ -10,7 +10,7 @@ namespace IK.BLL.Managers.Abstracts
     public interface IAppUserManager:IManager<AppUser>
     {
         //Admin için yeni kullanıcı oluşturma ve rol atama
-        Task<AppUser> CreateUserWithRoleAsync(string username, string password, string rolename);
+        Task<AppUser> CreateUserWithRoleAsync(string username, string email,string password, string rolename);
         //Kullanıcı adı ile kullanıcıyı getirme
         Task<List<AppUser>> GetUsersByRoleAsync(string roleName);
         //Kullanıcı rolünü değiştirme

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IK.DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20251124225205_Mg1")]
+    [Migration("20251128141154_Mg1")]
     partial class Mg1
     {
         /// <inheritdoc />
@@ -118,16 +118,16 @@ namespace IK.DAL.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             ActivationCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                            ConcurrencyStamp = "14d4815b-5db4-43cb-b40a-03600309d17f",
+                            ConcurrencyStamp = "be2331bb-dc3d-420c-95d9-6d0fbbf852fe",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ozan@ik.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OZAN@IK.COM",
                             NormalizedUserName = "OZAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBagqgoUvgNlUJqXO4PYu7aqRkSJjo1iHEKW2RAeYzIn7jX24sU8QofI+WQX1Ozh8g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMtax3k9JjJN4RSuIbgSRwNBRXS6MqoBk5UHw6P8wkOnZndC0AwbTln/Ch39QXpgVQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "096bf938-d7a6-4d67-9f4b-797ace304953",
+                            SecurityStamp = "fee2da7e-8e0c-4bbf-8ff5-a1dac95a42bd",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "ozan"
@@ -137,16 +137,16 @@ namespace IK.DAL.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             ActivationCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                            ConcurrencyStamp = "ea088c72-3ff5-429e-8bfe-0dd0dd1c3fbf",
+                            ConcurrencyStamp = "149ffe8e-18f5-4cb5-965b-0a6bc797bec2",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ahmet@ik.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "AHMET@IK.COM",
                             NormalizedUserName = "AHMET",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO/7MGp5UdQhAA0uICjnHUFwTrbm5IvO5ZAPEiK3pdS+6i2sPR2/YhHul5qYh8Z25g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDY+OqmgFDJbqkllel2eKtIfk0d2SK/oww6z8np95lP4vzEL8M9FtxGtvlDTRik2mQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d27f9a49-1f01-4e49-ac82-c3b0ed9f0d96",
+                            SecurityStamp = "e7a73c7f-493a-4183-978e-f3d466fe0497",
                             Status = 0,
                             TwoFactorEnabled = false,
                             UserName = "ahmet"
@@ -244,7 +244,7 @@ namespace IK.DAL.Migrations
                             Address = "İstanbul Kadıköy",
                             BranchName = "Merkez Şube",
                             City = "İstanbul",
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4424),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4296),
                             Status = 1
                         },
                         new
@@ -253,7 +253,7 @@ namespace IK.DAL.Migrations
                             Address = "Ankara Etimesgut",
                             BranchName = "Ankara Şube",
                             City = "Ankara",
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4439),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4313),
                             Status = 1
                         });
                 });
@@ -308,22 +308,22 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4529),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4362),
                             CurrentPositionId = 1,
                             EmployeeId = 1,
                             Notes = "Başarılı performans",
-                            PlannedPromotionDate = new DateTime(2026, 5, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4530),
+                            PlannedPromotionDate = new DateTime(2026, 5, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4363),
                             Status = 1,
                             TargetPositionId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4539),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4371),
                             CurrentPositionId = 2,
                             EmployeeId = 2,
                             Notes = "Tecrübeyi artıracak",
-                            PlannedPromotionDate = new DateTime(2026, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4540),
+                            PlannedPromotionDate = new DateTime(2026, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4372),
                             Status = 1,
                             TargetPositionId = 2
                         });
@@ -373,7 +373,7 @@ namespace IK.DAL.Migrations
                         {
                             Id = 1,
                             BranchId = 1,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4620),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4400),
                             DepartmantName = "İK",
                             Description = "İnsan Kaynakları",
                             Status = 1
@@ -382,7 +382,7 @@ namespace IK.DAL.Migrations
                         {
                             Id = 2,
                             BranchId = 2,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4622),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4402),
                             DepartmantName = "Yazılım",
                             Description = "Yazılım Geliştirme",
                             Status = 1
@@ -489,7 +489,7 @@ namespace IK.DAL.Migrations
                             AppUserId = 1,
                             BirthDate = new DateTime(2002, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BranchId = 1,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4736),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4485),
                             DepartmanId = 1,
                             Email = "ozan@ik.com",
                             FirstName = "Ozan",
@@ -500,7 +500,7 @@ namespace IK.DAL.Migrations
                             PhoneNumber = "05000000001",
                             PositionId = 1,
                             Salary = 10000m,
-                            StartDate = new DateTime(2023, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4741),
+                            StartDate = new DateTime(2023, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4490),
                             Status = 1,
                             TCKN = "12345678901"
                         },
@@ -511,7 +511,7 @@ namespace IK.DAL.Migrations
                             AppUserId = 2,
                             BirthDate = new DateTime(1992, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BranchId = 2,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4746),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4493),
                             DepartmanId = 2,
                             Email = "ahmet@ik.com",
                             FirstName = "Ahmet",
@@ -522,7 +522,7 @@ namespace IK.DAL.Migrations
                             PhoneNumber = "05000000002",
                             PositionId = 2,
                             Salary = 9000m,
-                            StartDate = new DateTime(2024, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4749),
+                            StartDate = new DateTime(2024, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4496),
                             Status = 1,
                             TCKN = "12345678902"
                         });
@@ -586,7 +586,7 @@ namespace IK.DAL.Migrations
                         {
                             Id = 1,
                             Certifications = "İK Sertifikası",
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4676),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4443),
                             Education = "Üniversite",
                             EducationLevel = 3,
                             EmployeeId = 1,
@@ -599,7 +599,7 @@ namespace IK.DAL.Migrations
                         {
                             Id = 2,
                             Certifications = "MCP",
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4679),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4445),
                             Education = "Üniversite",
                             EducationLevel = 3,
                             EmployeeId = 2,
@@ -666,10 +666,10 @@ namespace IK.DAL.Migrations
                         {
                             Id = 1,
                             ApplicantName = "Mehmet Demir",
-                            ApplicateDate = new DateTime(2025, 11, 15, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4813),
+                            ApplicateDate = new DateTime(2025, 11, 18, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4526),
                             ApplicationStatus = 1,
                             CVFilePath = "CVs/MehmetDemir.pdf",
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4811),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4525),
                             Email = "mehmet@example.com",
                             PhoneNumber = "05001112233",
                             PositionId = 2,
@@ -679,10 +679,10 @@ namespace IK.DAL.Migrations
                         {
                             Id = 2,
                             ApplicantName = "Ayşe Yılmaz",
-                            ApplicateDate = new DateTime(2025, 11, 20, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4820),
+                            ApplicateDate = new DateTime(2025, 11, 23, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4533),
                             ApplicationStatus = 2,
                             CVFilePath = "CVs/AyseYilmaz.pdf",
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4818),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4532),
                             Email = "ayse@example.com",
                             PhoneNumber = "05004445566",
                             PositionId = 1,
@@ -740,7 +740,7 @@ namespace IK.DAL.Migrations
                         {
                             Id = 1,
                             Bonuses = 500m,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4859),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4562),
                             Deductions = 500m,
                             EmployeeId = 1,
                             GrossSalary = 10000m,
@@ -752,7 +752,7 @@ namespace IK.DAL.Migrations
                         {
                             Id = 2,
                             Bonuses = 300m,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4863),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4564),
                             Deductions = 400m,
                             EmployeeId = 2,
                             GrossSalary = 9000m,
@@ -814,7 +814,7 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4909),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4598),
                             DepartmantId = 1,
                             MaxSalary = 12000m,
                             MinSalary = 8000m,
@@ -826,7 +826,7 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4913),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4600),
                             DepartmantId = 2,
                             MaxSalary = 15000m,
                             MinSalary = 9000m,
@@ -916,20 +916,20 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4948),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4633),
                             EmployeeId = 1,
-                            EntryTime = new DateTime(2025, 11, 25, 9, 0, 0, 0, DateTimeKind.Local),
-                            ExitTime = new DateTime(2025, 11, 25, 18, 0, 0, 0, DateTimeKind.Local),
+                            EntryTime = new DateTime(2025, 11, 28, 9, 0, 0, 0, DateTimeKind.Local),
+                            ExitTime = new DateTime(2025, 11, 28, 18, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalHours = 9m
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 11, 25, 1, 52, 5, 296, DateTimeKind.Local).AddTicks(4954),
+                            CreatedDate = new DateTime(2025, 11, 28, 17, 11, 53, 957, DateTimeKind.Local).AddTicks(4639),
                             EmployeeId = 2,
-                            EntryTime = new DateTime(2025, 11, 25, 9, 0, 0, 0, DateTimeKind.Local),
-                            ExitTime = new DateTime(2025, 11, 25, 18, 0, 0, 0, DateTimeKind.Local),
+                            EntryTime = new DateTime(2025, 11, 28, 9, 0, 0, 0, DateTimeKind.Local),
+                            ExitTime = new DateTime(2025, 11, 28, 18, 0, 0, 0, DateTimeKind.Local),
                             Status = 1,
                             TotalHours = 9m
                         });
@@ -968,14 +968,14 @@ namespace IK.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "13c51905-8b69-4a1b-81ec-ff2ffde5b987",
+                            ConcurrencyStamp = "2c72704e-1464-434e-819e-e42744631a86",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "198abdb6-874e-49b6-a663-fba4bcb61056",
+                            ConcurrencyStamp = "5df8fa26-2862-4ada-b15e-e944e91592a7",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

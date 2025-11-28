@@ -58,7 +58,7 @@ namespace IK.BLL.Managers.Concretes
             entity.DeletedDate = DateTime.Now;
             entity.Status = ENTITIES.Enums.DataStatus.Passive;
             T originalValue = await _repository.GetByIdAsync(entity.Id);
-            await _repository.UpdateAsync(entity);
+            await _repository.UpdateAsync(entity,entity);
         }
 
         public async Task<string> DeleteAsync(T entity)
@@ -84,7 +84,7 @@ namespace IK.BLL.Managers.Concretes
 
             
 
-            await _repository.UpdateAsync(entity);
+            await _repository.UpdateAsync(originalValue,entity);
         }
 
         public List<T> Where(Expression<Func<T, bool>> exp)
