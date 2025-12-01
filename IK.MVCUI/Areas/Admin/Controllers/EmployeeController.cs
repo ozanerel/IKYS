@@ -26,6 +26,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+
             List<IK.ENTITIES.Models.Employee> employees = await _employeeManager.GetAllAsync();
             return View(employees);
         }

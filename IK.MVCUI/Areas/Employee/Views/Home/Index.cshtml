@@ -1,9 +1,72 @@
-﻿
+﻿@model IK.MVCUI.Areas.Employee.Models.PageVms.EmployeeDashboardPageVm
+
 @{
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
     ViewData["Title"] = "Çalışan Paneli";
 }
-<h2>Merhaba, @ViewBag.FullName 👋</h2>
-<p>Pozisyon: @ViewBag.Position</p>
 
+<div class="container mt-4">
 
+    <div class="row">
+        <div class="col-md-3 text-center">
+            <img src="~/images/default-profile.png" class="img-thumbnail rounded-circle" style="width:150px;height:150px;" />
+
+            <h4 class="mt-3">@Model.FullName</h4>
+            <p class="text-muted">@Model.PositionName</p>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Çalışan Bilgileri</h5>
+                    <hr />
+
+                    <p><strong>Email:</strong> @Model.Email</p>
+                    <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+                    <p><strong>Departman:</strong> @Model.DepartmanName</p>
+                    <p><strong>Şube:</strong> @Model.BranchName</p>
+                    <p><strong>İşe Başlama:</strong> @Model.StartDate.ToString("dd.MM.yyyy")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <i class="fas fa-chart-line me-1"></i> Son 7 Günlük Çalışma Saatleri
+                </div>
+                <div class="card-body">
+                    <canvas id="workChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ChartLabels));
+        const data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ChartData));
+
+        new Chart(document.getElementById('workChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Saat",
+                    data: data,
+                    borderWidth: 2,
+                    borderColor: "blue",
+                    fill: false,
+                    tension: 0.3
+                }]
+            }
+        });
+    </script>
+}

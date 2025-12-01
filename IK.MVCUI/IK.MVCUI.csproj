@@ -21,8 +21,4 @@
     <ProjectReference Include="..\IK.ENTITIES\IK.ENTITIES.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Employee\Models\" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
     ViewData["Title"] = "Admin Dashboard";
 }
@@ -8,9 +9,10 @@
     <div class="col-xl-3 col-md-6">
         <div class="card bg-primary text-white mb-4">
             <div class="card-body">
-                Toplam Sipariş Adet
+                Toplam Aktif Şube Sayısı
 
-                <h4>0</h4>
+               <h3>@ViewBag.TotalBranches</h3>
+                
             </div>
 
             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -22,9 +24,9 @@
     <div class="col-xl-3 col-md-6">
         <div class="card bg-warning text-white mb-4">
             <div class="card-body">
-                Toplam Gelir
+                Toplam Gider
 
-                <h4>0</h4>
+                <h3>0</h3>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="#">View Details</a>
@@ -35,9 +37,9 @@
     <div class="col-xl-3 col-md-6">
         <div class="card bg-success text-white mb-4">
             <div class="card-body">
-                En Fazla Ürün Alan Müşteri
+                Toplam Aktif Pozisyon Sayısı
 
-                <h4>Müşteri Şirket Ad</h4>
+                <h3>@ViewBag.TotalPositions</h3>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="#">View Details</a>
@@ -50,7 +52,7 @@
             <div class="card-body">
                 En düşük fiyatlı ürün
 
-                <h4>0</h4>
+                <h3>0</h3>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="#">View Details</a>
