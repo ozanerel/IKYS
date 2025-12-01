@@ -5,11 +5,21 @@
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
+@*
+Eger Form üzerinden bir dosya gönderecek iseniz Form tag'inizin kesinlikle özel bir attribute'a sahip olması gerekir...Bu attribute enctype isimli attribute'tur..Ve degerinin multipart/form-data seklinde verilmesi gerekir
+*@
+
 <h2 class="mb-3">@ViewData["Title"]</h2>
 
-<form asp-action="Create" method="post" class="p-4">
+<form asp-action="Create" method="post" class="p-4" enctype="multipart/form-data">
 
     <div class="row">
+
+        <div class="mb-3">
+            <label>Resim dosyası yükleyiniz</label>
+            <input type="file" name="formFile" class="form-control" /> @*Buradaki name property'si cok kritik cünkü buradaki resim bilgisini action'iniz bu isimdeki parametre ile karsılayacak*@
+        </div>
+
         <div class="col-md-6 mb-3">
             <label>Ad</label>
             <input asp-for="FirstName" class="form-control" />

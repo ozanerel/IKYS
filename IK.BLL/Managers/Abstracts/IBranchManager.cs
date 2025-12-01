@@ -12,6 +12,6 @@ namespace IK.BLL.Managers.Abstracts
         Task ActiveBranchAsync(int id);
         Task AssignEmployeeToBranchAsync(int employeeId,int branchId);
         Task<List<Employee>> GetEmployeesByBranchAsync(int branchId);
-        Task AddDepartmantToBranchAsync(int branchId, Departmant departmant);
+        Task AddDepartmantToBranchAsync(int branchId, int departmantId);
     }
 }

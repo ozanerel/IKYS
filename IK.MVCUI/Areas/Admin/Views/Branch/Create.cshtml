@@ -1,0 +1,41 @@
+﻿@model BranchCreatePageVm
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<form asp-action="Create" method="post" class="p-4">
+
+    <div class="row">
+
+
+        <div class="col-md-6 mb-3">
+            <label>Şube Adı</label>
+            <input asp-for="BranchName" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Şehir</label>
+            <input asp-for="City" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Adres</label>
+            <textarea asp-for="Address" class="form-control"></textarea>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Departman</label>
+            <select asp-for="DepartmantId" class="form-select">
+                @foreach (var item in Model.Departmants)
+                {
+                    <option value="@item.Id">@item.DepartmantName</option>
+                }
+            </select>
+        </div>
+
+        <button class="btn btn-primary">Kaydet</button>
+</form>
+
+

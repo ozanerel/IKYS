@@ -46,14 +46,14 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeCreatePageVm vm)
+        public async Task<IActionResult> Create(EmployeeCreatePageVm vm,IFormFile formFile)
         {
             if (!ModelState.IsValid)
             {
                 vm.Departmants = _departmantManager.GetActives().ToList();
                 vm.Positions = _positionManager.GetActives().ToList();
                 vm.Branches = _branchManager.GetActives().ToList();
-                //return View(vm);
+                
             }
 
             // 1) Identity Kullanıcı oluşturma
@@ -64,15 +64,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 "Employee"         // rol
             );
 
-            //if (appUser == null)
-            //{
-            //    ModelState.AddModelError("", "Kullanıcı oluşturulamadı!");
-            //    vm.Departmants = _departmantManager.GetActives().ToList();
-            //    vm.Positions = _positionManager.GetActives().ToList();
-            //    vm.Branches = _branchManager.GetActives().ToList();
-            //    //return View(vm);
-            //}
-
+           
             // 2) Employee oluşturma
             var employee = new IK.ENTITIES.Models.Employee
             {
@@ -94,7 +86,18 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 AppUserId = appUser.Id   // ilişkiyi kurduk
             };
 
-            // 3) Employee kaydetme
+            // 3) Dosya yolu oluşturma ve resim yükleme
+            Guid guid = Guid.NewGuid();
+            string fileExtension = Path.GetExtension(formFile.FileName);//dosyanın uzantısını aldık
+
+            vm.ImagePath = $"/images/{guid}.{fileExtension}";
+
+            string path = $"{Directory.GetCurrentDirectory()}/wwwroot/{vm.ImagePath}";
+
+            FileStream fileStream = new(path, FileMode.Create);//path'i verdikten sonra Create ile o ilgili path'te dosyayı oluşturuyoruz
+            formFile.CopyTo(fileStream);
+
+            // 4) Employee kaydetme
             await _employeeManager.CreateAsync(employee);
 
             return RedirectToAction("Index");

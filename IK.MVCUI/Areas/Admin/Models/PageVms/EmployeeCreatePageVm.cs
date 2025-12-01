@@ -15,6 +15,7 @@ public class EmployeeCreatePageVm
     public string Address { get; set; }
     public DateTime StartDate { get; set; }
     public decimal Salary { get; set; }
+    public string ImagePath { get; set; }
     public JobType JobType { get; set; }
 
     // Admin'in vereceği şifre
