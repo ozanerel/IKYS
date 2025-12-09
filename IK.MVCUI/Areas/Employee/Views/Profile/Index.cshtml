@@ -1,0 +1,42 @@
+﻿@model IK.ENTITIES.Models.Employee
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2>Profil Bilgilerim</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="Update" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="col-mb-4 text-center">
+        <img src="~/images/profile_photo.jpg" class="img-thumbnail rounded-circle" style="width:200px;height:200px;" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ad Soyad:</label>
+        <input class="form-control" value="@Model.FirstName @Model.LastName" disabled />
+    </div>
+
+    <div class="mb-3">
+        <label>Email:</label>
+        <input class="form-control" value="@Model.Email" disabled />
+    </div>
+
+    <div class="mb-3">
+        <label>Telefon</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Adres</label>
+        <textarea asp-for="Address" class="form-control"></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Kaydet</button>
+</form>

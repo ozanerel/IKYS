@@ -1,0 +1,55 @@
+﻿@using IK.ENTITIES.Enums
+@model IK.ENTITIES.Models.JobApplication
+@{
+    ViewData["Title"] = "Başvuru Detay";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h3>@Model.ApplicantName Başvurusu</h3>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+        <p><strong>Pozisyon ID:</strong> @Model.PositionId</p>
+        <p><strong>Başvuru Tarihi:</strong> @Model.CreatedDate</p>
+
+        <p>
+            <strong>Durum:</strong>
+            @if (Model.ApplicationStatus == ApplicationStatus.Pending)
+            {
+                <span class="badge bg-warning">Beklemede</span>
+            }
+            else if (Model.ApplicationStatus == ApplicationStatus.Approved)
+            {
+                <span class="badge bg-success">Onaylandı</span>
+            }
+            else
+            {
+                <span class="badge bg-danger">Reddedildi</span>
+            }
+        </p>
+
+        <p>
+            <strong>CV:</strong>
+            <a href="@Model.CVFilePath" target="_blank" class="btn btn-secondary btn-sm">CV Görüntüle</a>
+        </p>
+    </div>
+</div>
+
+<!-- BUTONLAR (duruma göre değişir) -->
+<div class="mt-3">
+    @if (Model.ApplicationStatus == ApplicationStatus.Pending)
+    {
+        <a class="btn btn-success" asp-action="Approve" asp-route-id="@Model.Id">Onayla</a>
+        <a class="btn btn-danger" asp-action="Reject" asp-route-id="@Model.Id">Reddet</a>
+    }
+    else if (Model.ApplicationStatus == ApplicationStatus.Approved)
+    {
+        <span class="text-success fw-bold">Bu başvuru ONAYLANDI ✔</span>
+    }
+    else if (Model.ApplicationStatus == ApplicationStatus.Rejected)
+    {
+        <span class="text-danger fw-bold">Bu başvuru REDDEDİLDİ ✖</span>
+    }
+</div>

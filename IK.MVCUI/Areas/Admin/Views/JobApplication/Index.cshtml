@@ -1,0 +1,49 @@
+﻿@using IK.ENTITIES.Enums
+@model List<IK.ENTITIES.Models.JobApplication>
+@{
+	ViewData["Title"] = "İş Başvuruları";
+	Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2>İş Başvuruları</h2>
+
+<table class="table table-bordered table-striped mt-3">
+	<thead>
+		<tr>
+			<th>Ad Soyad</th>
+			<th>Email</th>
+			<th>Pozisyon</th>
+			<th>Durum</th>
+			<th>Detay</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var app in Model)
+		{
+			<tr>
+				<td>@app.ApplicantName</td>
+				<td>@app.Email</td>
+				<td>@app.Position.PositionName</td>
+				<td>
+					@if (app.ApplicationStatus == ApplicationStatus.Pending)
+					{
+						<span class="badge bg-warning">Beklemede</span>
+					}
+					else if (app.ApplicationStatus == ApplicationStatus.Approved)
+					{
+						<span class="badge bg-success">Onaylandı</span>
+					}
+					else
+					{
+						<span class="badge bg-danger">Reddedildi</span>
+					}
+				</td>
+				<td>
+					<a asp-area="Admin" asp-controller="JobApplication" asp-action="Details"
+					   asp-route-id="@app.Id"
+					   class="btn btn-primary btn-sm">Detay</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

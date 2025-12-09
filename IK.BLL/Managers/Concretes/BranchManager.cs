@@ -37,7 +37,7 @@ namespace IK.BLL.Managers.Concretes
         {
             var departmant = await _departmantRepository.GetByIdAsync(departmantId);
             departmant.BranchId = branchId;
-            await _departmantRepository.CreateAsync(departmant);
+            await _departmantRepository.UpdateAsync(departmant,departmant);
         }
 
         public async Task AssignEmployeeToBranchAsync(int employeeId, int branchId)

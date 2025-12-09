@@ -1,0 +1,30 @@
+﻿@model DepartmantUpdatePageVm
+
+@{
+    ViewData["Title"] = "Departmanı Güncelle";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<form asp-action="Update" method="post" class="p-4">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label>Departman Adı</label>
+        <input asp-for="DepartmantName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Açıklama</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Pozisyon</label>
+        <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "Id", "PositionName"))" class="form-select"></select>
+    </div>
+
+    <button class="btn btn-primary">Kaydet</button>
+</form>

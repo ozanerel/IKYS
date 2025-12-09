@@ -1,0 +1,39 @@
+﻿@model List<IK.ENTITIES.Models.Departmant>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2 class="mb-3">Departman Listesi</h2>
+
+<a asp-area="Admin" asp-controller="Departmant" asp-action="Create" class="btn btn-primary mb-3">
+	Yeni Departman Ekle
+</a>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Departman Adı</th>
+			<th>Açıklaması</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (IK.ENTITIES.Models.Departmant departmant in Model)
+		{
+			<tr>
+				<td>@departmant.DepartmantName</td>
+				<td>@departmant.Description</td>
+				<td>
+					<a asp-area="Admin" asp-controller="Departmant" asp-action="Update" asp-route-id="@departmant.Id"
+					   class="btn btn-warning btn-sm">Güncelle</a>
+
+					<a asp-area="Admin" asp-controller="Departmant" asp-action="Pacify" asp-route-id="@departmant.Id"
+					   class="btn btn-danger btn-sm">Pasife Çek</a>
+				</td>
+
+			</tr>
+		}
+	</tbody>
+</table>
+

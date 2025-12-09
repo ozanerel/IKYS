@@ -1,0 +1,30 @@
+﻿@model BranchUpdatePageVm
+
+@{
+    ViewData["Title"] = "Şubeyi Güncelle";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<form asp-action="Update" method="post" class="p-4">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label>Şube Adı</label>
+        <input asp-for="BranchName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Şehir</label>
+        <input asp-for="City" class="form-control" />
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label>Adres</label>
+        <textarea asp-for="Address" class="form-control"></textarea>
+    </div> 
+
+    <button class="btn btn-primary">Kaydet</button>
+</form>

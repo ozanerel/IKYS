@@ -1,4 +1,5 @@
 ﻿using IK.BLL.Managers.Abstracts;
+using IK.BLL.Managers.Concretes;
 using IK.ENTITIES.Models;
 using IK.MVCUI.Areas.Admin.Models.PageVms;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,8 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BranchCreatePageVm vm)
         {
+            ModelState.Remove("Departmants");//Eski modelstate'i bulunduruyorsa diye post sırasında tamamen siliyoruz.
+
             if (!ModelState.IsValid)
             {
                 vm.Departmants = _departmantManager.GetActives().ToList();
@@ -49,15 +52,60 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 Address = vm.Address
             };
 
-            // 1) Branch kaydedilir
+            // Önce şubeyi kaydet
             await _branchManager.CreateAsync(branch);
 
-            // 2) Eğer departman seçilmişse branch'a bağlanır
-            if (vm.DepartmantId != 0)
+            // Departman seçilmişse şubeye bağla
+            if (vm.DepartmantId > 0)
             {
                 await _branchManager.AddDepartmantToBranchAsync(branch.Id, vm.DepartmantId);
             }
 
+            return RedirectToAction("Index");
+        }
+
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var branch = await _branchManager.GetByIdAsync(id);
+
+            var vm = new BranchUpdatePageVm
+            {
+                Id = branch.Id,
+                BranchName = branch.BranchName,
+                City = branch.City,
+                Address = branch.Address,
+                
+                //DepartmantId = branch.DepartmantId,
+                
+                Departmants = _departmantManager.GetActives(),
+               
+            };
+
+            return View(vm);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(BranchUpdatePageVm pvm)
+        {
+            var branch = await _branchManager.GetByIdAsync(pvm.Id);
+            if (branch == null) return NotFound();
+
+            branch.Id = pvm.Id;
+            branch.BranchName = pvm.BranchName;
+            branch.City = pvm.City;
+            branch.Address = pvm.Address;
+            
+            await _branchManager.UpdateAsync(branch);
+
+            return RedirectToAction("Index");
+
+        }
+
+        public async Task<IActionResult> Pasify(int id)
+        {
+            await _branchManager.MakePassiveAsync(await _branchManager.GetByIdAsync(id));
             return RedirectToAction("Index");
         }
 

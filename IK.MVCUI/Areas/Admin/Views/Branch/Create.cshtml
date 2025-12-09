@@ -1,11 +1,13 @@
 ﻿@model BranchCreatePageVm
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Yeni Şube Ekle";
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
 <form asp-action="Create" method="post" class="p-4">
+    @Html.ValidationSummary()
+
 
     <div class="row">
 
@@ -34,6 +36,8 @@
                 }
             </select>
         </div>
+
+     </div>
 
         <button class="btn btn-primary">Kaydet</button>
 </form>

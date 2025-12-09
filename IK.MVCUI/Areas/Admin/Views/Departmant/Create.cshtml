@@ -1,0 +1,52 @@
+﻿@model DepartmantCreatePageVm
+
+@{
+    ViewData["Title"] = "Yeni Departman Ekle";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<form asp-action="Create" method="post" class="p-4">
+    @Html.ValidationSummary()
+
+
+    <div class="row">
+
+
+        <div class="col-md-6 mb-3">
+            <label>Departman Adı</label>
+            <input asp-for="DepartmantName" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Açıklama</label>
+            <input asp-for="Description" class="form-control" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Pozisyon</label>
+            <select asp-for="PositionId" class="form-select">
+                @foreach (var item in Model.Positions)
+                {
+                    <option value="@item.Id">@item.PositionName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Şube</label>
+            <select asp-for="BranchId" class="form-select">
+                <option value="">Seçiniz</option>
+                @foreach (var b in Model.Branches)
+                {
+                    <option value="@b.Id">@b.BranchName</option>
+                }
+            </select>
+        </div>
+
+
+    </div>
+
+    <button class="btn btn-primary">Kaydet</button>
+</form>
+
+
