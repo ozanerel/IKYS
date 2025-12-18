@@ -1,6 +1,6 @@
 ﻿@model IK.ENTITIES.Models.Employee
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Profilim";
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
@@ -11,12 +11,28 @@
     <div class="alert alert-success">@TempData["Success"]</div>
 }
 
-<form asp-action="Update" method="post">
+<form asp-action="Update" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
-    <div class="col-mb-4 text-center">
-        <img src="~/images/profile_photo.jpg" class="img-thumbnail rounded-circle" style="width:200px;height:200px;" />
+    <div class="text-center mb-4">
+        <img src="@(Model.ImagePath ?? "/images/default-profile.png")"
+             class="img-thumbnail rounded-circle"
+             style="width:180px;height:180px;cursor:pointer;"
+             id="profileImagePreview" />
+
+        <input type="file" id="profileImageInput" name="ProfilePhoto" accept="image/*" style="display:none;" />
     </div>
+
+    <script>
+        document.getElementById("profileImagePreview").onclick = function () {
+            document.getElementById("profileImageInput").click();
+        };
+
+        document.getElementById("profileImageInput").onchange = function (e) {
+            var output = document.getElementById("profileImagePreview");
+            output.src = URL.createObjectURL(e.target.files[0]);
+        };
+    </script>
 
     <div class="mb-3">
         <label>Ad Soyad:</label>
@@ -40,3 +56,9 @@
 
     <button class="btn btn-primary" type="submit">Kaydet</button>
 </form>
+
+
+
+
+
+    

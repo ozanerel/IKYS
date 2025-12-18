@@ -1,0 +1,41 @@
+﻿@model PayrollCreatePageVm
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2>Bordro Oluştur</h2>
+
+<form asp-action="Create" method="post">
+    @Html.ValidationSummary()
+
+    <div class="mb-3">
+        <label>Çalışan</label>
+        <select asp-for="EmployeeId" class="form-control" asp-items="@(new SelectList(Model.Employees, "Id", "FirstName"))">
+            <option value="">Seçiniz</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Dönem (YYYY-MM)</label>
+        <input asp-for="Period" class="form-control" placeholder="2025-01" />
+    </div>
+
+    <div class="mb-3">
+        <label>Saatlik Ücret</label>
+        <input asp-for="HourlyRate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Vergi Oranı (0.10 gibi)</label>
+        <input asp-for="TaxRate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Bonus</label>
+        <input asp-for="Bonuses" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Kaydet</button>
+</form>
+

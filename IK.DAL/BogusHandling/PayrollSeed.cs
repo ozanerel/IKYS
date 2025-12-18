@@ -17,10 +17,14 @@ namespace IK.DAL.BogusHandling
                 Id = 1,
                 EmployeeId = 1,
                 Period = "2025-11",
-                GrossSalary = 10000,
-                NetSalary = 9000,
+                TotalHours = 160,
+                HourlyRate = 100,
+                TaxRate = 0.1m,
                 Bonuses = 500,
-                Deductions = 500
+                //GrossSalary = 10000,
+                //NetSalary = 9000,
+                //Bonuses = 500,
+                //Deductions = 500
             };
 
             Payroll pay2 = new()
@@ -28,10 +32,14 @@ namespace IK.DAL.BogusHandling
                 Id = 2,
                 EmployeeId = 2,
                 Period = "2025-11",
-                GrossSalary = 9000,
-                NetSalary = 8200,
-                Bonuses = 300,
-                Deductions = 400
+                TotalHours = 160,
+                HourlyRate = 100,
+                TaxRate = 0.1m,
+                Bonuses = 500,
+                //GrossSalary = 9000,
+                //NetSalary = 8200,
+                //Bonuses = 300,
+                //Deductions = 400
             };
 
             modelBuilder.Entity<Payroll>().HasData(pay1, pay2);

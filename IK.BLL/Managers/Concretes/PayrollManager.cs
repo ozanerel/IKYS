@@ -11,22 +11,43 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IK.BLL.Managers.Concretes
 {
-    public class PayrollManager:BaseManager<Payroll>,IPayrollManager
+    public class PayrollManager : BaseManager<Payroll>, IPayrollManager
     {
         readonly IPayrollRepository _repository;
         readonly IWorkHourRepository _workHourRepository;
         readonly IEmployeeRepository _employeeRepository;
-        public PayrollManager(IPayrollRepository repository, IWorkHourRepository workHourRepository,IEmployeeRepository employeeRepository):base(repository)
+        public PayrollManager(IPayrollRepository repository, IWorkHourRepository workHourRepository, IEmployeeRepository employeeRepository) : base(repository)
         {
             _repository = repository;
             _workHourRepository = workHourRepository;
             _employeeRepository = employeeRepository;
         }
 
-       
+        public async Task CancelPayrollAsync(int id)
+        {
+            var payroll = await _repository.GetByIdAsync(id);
+            if (payroll == null)
+                throw new Exception("Bordro bulunamadı.");
+
+            payroll.Status = DataStatus.Deleted;
+            payroll.UpdatedDate = DateTime.Now;
+
+            await _repository.UpdateAsync(payroll,payroll);
+
+
+        }
 
         public async Task GeneratePayrollAsync(int employeeId, string period, decimal hourlyRate, decimal taxRate, decimal bonuses = 0)
         {
+            bool payrollExists = await _repository.Where(p =>
+                    p.EmployeeId == employeeId &&
+                    p.Period == period &&
+                    p.Status != DataStatus.Deleted
+                ).AnyAsync();
+
+            if (payrollExists)
+                throw new Exception("Bu çalışan için bu döneme ait bordro zaten oluşturulmuş.");
+
             var employee = await _employeeRepository.GetByIdAsync(employeeId);
             if (employee == null) return;
 
@@ -57,10 +78,13 @@ namespace IK.BLL.Managers.Concretes
             {
                 EmployeeId = employeeId,
                 Period = period,
-                GrossSalary = Math.Round(grossSalary, 2),
-                NetSalary = Math.Round(netSalary, 2),
+                TotalHours = totalHours,
+                HourlyRate = hourlyRate,
+                TaxRate = taxRate,
+                //GrossSalary = Math.Round(grossSalary, 2),
+                //NetSalary = Math.Round(netSalary, 2),
                 Bonuses = Math.Round(bonuses, 2),
-                Deductions = Math.Round(deductions, 2),
+                //Deductions = Math.Round(deductions, 2),
                 CreatedDate = DateTime.Now,
                 Status = DataStatus.Inserted
             };
@@ -68,10 +92,20 @@ namespace IK.BLL.Managers.Concretes
             await _repository.CreateAsync(payroll);
         }
 
+        public async Task<List<Payroll>> GetPayrollsByEmployeeIdAsync(int employeeId)
+        {
+            return await _repository.Where(p => p.EmployeeId == employeeId).ToListAsync();
+        }
+
         public async Task<List<Payroll>> GetPayrollsByPeriodAsync(string period)
         {
             //Belirli bir döneme ait bordro kayıtlarını getirir.
             return await _repository.Where(p => p.Period == period).ToListAsync();
+        }
+
+        public async Task<List<Payroll>> GetPayrollsWithEmployeeAsync()
+        {
+            return await _repository.GetPayrollsWithEmployeeAsync();
         }
     }
 }

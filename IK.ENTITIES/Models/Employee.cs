@@ -23,6 +23,7 @@ namespace IK.ENTITIES.Models
         public DateTime? EndDate { get; set; }
         public decimal Salary { get; set; }
         public JobType JobType { get; set; }
+        public string? ImagePath { get; set; }
 
         public int? AppUserId { get; set; }
         public int DepartmanId { get; set; }

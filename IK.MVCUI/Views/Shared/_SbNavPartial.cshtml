@@ -57,7 +57,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-money-bill"></i></div>
                         Maaş & Bordro Yönetimi
                     </a>
-                    <a class="nav-link" asp-area="Admin" asp-controller="Overtime" asp-action="Index">
+                    <a class="nav-link" asp-area="Admin" asp-controller="WorkHour" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
                         Mesai Yönetimi
                     </a>
@@ -74,17 +74,21 @@
                         Kullanıcı Yönetimi
                     </a>
                 }
-
+                
                 @* Employee Menüsü *@
                 @if (User.IsInRole("Employee"))
                 {
-                    <a class="nav-link" asp-area="Employee" asp-controller="" asp-action="">
+                    <a class="nav-link" asp-area="Employee" asp-controller="WorkHour" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
                         Mesai Bilgileri
                     </a>
                     <a class="nav-link" asp-area="Employee" asp-controller="" asp-action="">
                         <div class="sb-nav-link-icon"><i class="fas fa-money-bill"></i></div>
                         Maaş Bilgileri
+                    </a>
+                    <a class="nav-link" asp-area="Employee" asp-controller="Payroll" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-money-bill"></i></div>
+                        Bordrolarım
                     </a>
                 }
 

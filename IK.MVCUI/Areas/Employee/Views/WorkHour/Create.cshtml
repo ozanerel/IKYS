@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Mesai Kaydı Ekle";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2>Mesai Kaydı Oluştur</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label>Giriş Saati</label>
+        <input type="datetime-local" name="entryTime" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label>Çıkış Saati</label>
+        <input type="datetime-local" name="exitTime" class="form-control" required />
+    </div>
+
+    <button class="btn btn-success">Kaydet</button>
+</form>

@@ -1,0 +1,34 @@
+﻿@model List<IK.ENTITIES.Models.WorkHour>
+@{
+    ViewData["Title"] = "Mesai Kayıtlarım";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2>Mesai Kayıtlarım</h2>
+
+<a class="btn btn-primary mb-3" asp-action="Create">Yeni Mesai Kaydı</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Giriş Saati</th>
+            <th>Çıkış Saati</th>
+            <th>Toplam Saat</th>
+            <th>Normal Mesai</th>
+            <th>Fazla Mesai</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EntryTime</td>
+                <td>@item.ExitTime</td>
+                <td>@item.TotalHours</td>
+                <td>@item.NormalHours</td>
+                <td>@item.OvertimeHours</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

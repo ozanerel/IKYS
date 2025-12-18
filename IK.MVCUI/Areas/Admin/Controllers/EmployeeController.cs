@@ -83,7 +83,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 BranchId = vm.BranchId,
                 DepartmanId = vm.DepartmanId,
                 PositionId = vm.PositionId,
-                AppUserId = appUser.Id   // ilişkiyi kurduk
+                AppUserId = appUser.Id  
             };
 
             // 3) Dosya yolu oluşturma ve resim yükleme
@@ -163,7 +163,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
 
 
 
-        public async Task<IActionResult> Pasify(int id)
+        public async Task<IActionResult> Pacify(int id)
         {
             await _employeeManager.MakePassiveAsync(await _employeeManager.GetByIdAsync(id));
             return RedirectToAction("Index");

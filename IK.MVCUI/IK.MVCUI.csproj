@@ -21,4 +21,8 @@
     <ProjectReference Include="..\IK.ENTITIES\IK.ENTITIES.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\employees\" />
+  </ItemGroup>
+
 </Project>

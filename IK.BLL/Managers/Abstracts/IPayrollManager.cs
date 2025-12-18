@@ -15,5 +15,13 @@ namespace IK.BLL.Managers.Abstracts
         //Belirli bir döneme ait bordro kayıtlarını getirir.
         Task<List<Payroll>> GetPayrollsByPeriodAsync(string period);
 
+        Task<List<Payroll>> GetPayrollsByEmployeeIdAsync(int employeeId);
+
+        Task<List<Payroll>> GetPayrollsWithEmployeeAsync();
+
+
+        Task CancelPayrollAsync(int id);
+
+
     }
 }

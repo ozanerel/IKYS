@@ -1,0 +1,41 @@
+﻿@model List<IK.ENTITIES.Models.Payroll>
+@{
+    ViewData["Title"] = "Bordrolarım";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2>Bordrolarım</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Henüz size ait bir bordro oluşturulmamış.
+    </div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Dönem</th>
+                <th>Toplam Saat</th>
+                <th>Brüt Maaş</th>
+                <th>Kesinti</th>
+                <th>Net Maaş</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Period</td>
+                    <td>@item.TotalHours</td>
+                    <td>@item.GrossSalary ₺</td>
+                    <td>@item.Deductions ₺</td>
+                    <td><strong>@item.NetSalary ₺</strong></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

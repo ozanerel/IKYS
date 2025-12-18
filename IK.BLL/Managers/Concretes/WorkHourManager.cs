@@ -24,14 +24,14 @@ namespace IK.BLL.Managers.Concretes
             if (exitTime <= entryTime)
                 throw new ArgumentException("Çıkış saati giriş saatinden önce olamaz.");
 
-            var totalHours = (decimal)(exitTime - entryTime).TotalHours;
+            //var totalHours = (decimal)(exitTime - entryTime).TotalHours;
 
             var workHour = new WorkHour
             {
                 EmployeeId = employeeId,
                 EntryTime = entryTime,
                 ExitTime = exitTime,
-                TotalHours = totalHours,
+                //TotalHours = totalHours,
                 CreatedDate = DateTime.Now,
                 Status = DataStatus.Inserted
             };
@@ -48,7 +48,7 @@ namespace IK.BLL.Managers.Concretes
             record.Status = DataStatus.Approved;
             record.UpdatedDate = DateTime.Now;
 
-            await _repository.UpdateAsync(record,record);
+            await _repository.UpdateAsync(record, record);
         }
 
         public async Task<decimal> GetTotalWorkHoursByEmployeeAsync(int employeeId, DateTime? startDate = null, DateTime? endDate = null)

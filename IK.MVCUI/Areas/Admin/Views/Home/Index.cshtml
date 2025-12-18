@@ -1,4 +1,4 @@
-﻿
+﻿@model List<HomePageVm>
 @{
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
     ViewData["Title"] = "Admin Dashboard";
@@ -58,6 +58,51 @@
                 <a class="small text-white stretched-link" href="#">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            DataTable Example
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Branch</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Branch</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.PositionName</td>
+                            <td>@item.BranchName</td>
+                            <td>61</td>
+                            <td>@item.StartedDate.ToString("dd.MM.yyyy")</td>
+                            <td>@item.Salary.ToString("C")</td>@* C para formatına sokmasına yardımcı oluyor *@
+                        </tr>
+                    }
+                   
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

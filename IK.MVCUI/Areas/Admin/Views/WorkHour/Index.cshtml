@@ -1,0 +1,24 @@
+﻿@model List<IK.ENTITIES.Models.WorkHour>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<table class="table">
+    <tr><th>Employee</th><th>Saat</th><th>Durum</th><th></th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Employee.FirstName</td>
+            <td>@item.TotalHours</td>
+            <td>@item.Status</td>
+            <td>
+                @if (item.Status != IK.ENTITIES.Enums.DataStatus.Approved)
+                {
+                    <a asp-action="Approve" asp-route-id="@item.Id">Onayla</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+

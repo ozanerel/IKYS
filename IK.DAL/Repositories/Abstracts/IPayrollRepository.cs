@@ -9,5 +9,7 @@ namespace IK.DAL.Repositories.Abstracts
 {
     public interface IPayrollRepository : IRepository<Payroll>
     {
+        Task<List<Payroll>> GetPayrollsWithEmployeeAsync();
+
     }
 }
