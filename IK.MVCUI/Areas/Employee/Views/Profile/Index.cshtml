@@ -1,4 +1,5 @@
 ﻿@model IK.ENTITIES.Models.Employee
+@using IK.MVCUI.Areas.Employee.Models.PageVms
 @{
     ViewData["Title"] = "Profilim";
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
@@ -6,9 +7,18 @@
 
 <h2>Profil Bilgilerim</h2>
 
-@if (TempData["Success"] != null)
+@if (TempData["PasswordError"] is string pwdError)
 {
-    <div class="alert alert-success">@TempData["Success"]</div>
+    <div class="alert alert-danger">
+        @Html.Raw(pwdError)
+    </div>
+}
+
+@if (TempData["Success"] is string success)
+{
+    <div class="alert alert-success">
+        @success
+    </div>
 }
 
 <form asp-action="Update" method="post" enctype="multipart/form-data">
@@ -53,9 +63,17 @@
         <label>Adres</label>
         <textarea asp-for="Address" class="form-control"></textarea>
     </div>
-
+    
     <button class="btn btn-primary" type="submit">Kaydet</button>
+
 </form>
+
+<a asp-area="Employee" asp-controller="Profile" asp-action="ChangePassword"
+        class="btn btn-warning btn-sm" type="submit">
+    Şifre Değiştirme
+</a>
+
+
 
 
 

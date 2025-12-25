@@ -33,8 +33,8 @@
                 <td>@item.Employee?.FirstName @item.Employee?.LastName</td>
                 <td>@item.Period</td>
                 <td>@item.TotalHours</td>
-                <td>@item.GrossSalary</td>
-                <td>@item.NetSalary</td>
+                <td>@item.GrossSalary.ToString("C")</td>
+                <td>@item.NetSalary.ToString("C")</td>
                 <td>
                     <a asp-action="Cancel" asp-route-id="@item.Id"
                        class="btn btn-danger btn-sm"

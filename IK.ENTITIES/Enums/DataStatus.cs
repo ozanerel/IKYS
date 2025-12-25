@@ -19,6 +19,7 @@ namespace IK.ENTITIES.Enums
 
     public enum Gender
     {
+        Unknown = 0,
         Male = 1,
         Female = 2,
         Other = 3
@@ -26,6 +27,7 @@ namespace IK.ENTITIES.Enums
 
     public enum MaritalStatus
     {
+        Unknown = 0,
         Single = 1,
         Married = 2,
         Divorced = 3,

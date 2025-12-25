@@ -1,0 +1,55 @@
+﻿@model List<IK.ENTITIES.Models.Employee>
+
+@{
+    ViewData["Title"] = "Pasif Çalışanlar";
+    Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<h2 class="mb-3">Pasif Çalışanlar</h2>
+
+<a asp-area="Admin"
+   asp-controller="Employee"
+   asp-action="Index"
+   class="btn btn-secondary mb-3">
+    Aktif Çalışanlara Dön
+</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ad Soyad</th>
+            <th>Email</th>
+            <th>Silinme Tarihi</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.FirstName @emp.LastName</td>
+                <td>@emp.Email</td>
+                <td>@emp.DeletedDate?.ToString("dd.MM.yyyy")</td>
+                <td>
+                    <a asp-area="Admin"
+                       asp-controller="Employee"
+                       asp-action="Restore"
+                       asp-route-id="@emp.Id"
+                       class="btn btn-success btn-sm">
+                        Geri Al
+                    </a>
+
+                    <a asp-area="Admin"
+                       asp-controller="Employee"
+                       asp-action="Delete"
+                       asp-route-id="@emp.Id"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Bu işlem GERİ ALINAMAZ. Emin misiniz?')">
+                        Kalıcı Sil
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

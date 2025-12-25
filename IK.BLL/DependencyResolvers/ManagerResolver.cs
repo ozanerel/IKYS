@@ -25,6 +25,7 @@ namespace IK.BLL.DependencyResolvers
             services.AddScoped<IPositionManager, PositionManager>();
             services.AddScoped<IReportManager, ReportManager>();
             services.AddScoped<IWorkHourManager, WorkHourManager>();
+
             
         }
     }

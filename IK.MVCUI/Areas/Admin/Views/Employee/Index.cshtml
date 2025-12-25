@@ -11,6 +11,11 @@
 	Yeni Çalışan Ekle
 </a>
 
+<a asp-area="Admin" asp-controller="Employee" asp-action="Passives"
+   class="btn btn-secondary mb-3">
+	Pasif Çalışanlar
+</a>
+
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
@@ -36,7 +41,7 @@
 					   class="btn btn-warning btn-sm">Güncelle</a>
 
 					<a asp-area="Admin" asp-controller="Employee" asp-action="Pacify" asp-route-id="@emp.Id"
-					   class="btn btn-danger btn-sm">Pasife Çek</a>
+					   class="btn btn-danger btn-sm" onclick="return confirm('Bu çalışan pasife alınacak. Emin misiniz?')">Pasife Çek</a>
 				</td>
 				
 			</tr>

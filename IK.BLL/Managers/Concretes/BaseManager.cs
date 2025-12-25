@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IK.BLL.Managers.Abstracts;
 using IK.DAL.Repositories.Abstracts;
+using IK.ENTITIES.Enums;
 using IK.ENTITIES.Interfaces;
 
 
@@ -30,7 +31,7 @@ namespace IK.BLL.Managers.Concretes
         public List<T> GetActives()
         {
             //Normal şartlarda buraya repository cagrılmadan önce Business Logic yazılır...
-            return _repository.Where(x => x.Status != ENTITIES.Enums.DataStatus.Deleted).ToList();
+            return _repository.Where(x => x.Status == DataStatus.Inserted || x.Status == DataStatus.Updated).ToList();
         }
 
         public async Task<List<T>> GetAllAsync()
@@ -55,21 +56,31 @@ namespace IK.BLL.Managers.Concretes
 
         public async Task MakePassiveAsync(T entity)
         {
-            entity.DeletedDate = DateTime.Now;
-            entity.Status = ENTITIES.Enums.DataStatus.Passive;
-            T originalValue = await _repository.GetByIdAsync(entity.Id);
-            await _repository.UpdateAsync(entity,entity);
+            if (entity == null) return;
+
+            var original = await _repository.GetByIdAsync(entity.Id);
+            if (original == null) return;
+
+            original.DeletedDate = DateTime.Now;
+            original.Status = ENTITIES.Enums.DataStatus.Deleted;
+
+            await _repository.UpdateAsync(original, original);
         }
 
         public async Task<string> DeleteAsync(T entity)
         {
-            if (entity.Status != ENTITIES.Enums.DataStatus.Deleted)
-            {
-                return "Silme işlemi sadece pasif veriler üzerinden yapılabilir";
-            }
-            T originalValue = await _repository.GetByIdAsync(entity.Id);
-            await _repository.DeleteAsync(originalValue);
-            return "Silme işlemi basarıyla gercekleştirildi";
+            if (entity == null)
+                return "Kayıt bulunamadı";
+
+            if (entity.Status != DataStatus.Deleted)
+                return "Sadece pasif kayıtlar silinebilir";
+
+            var original = await _repository.GetByIdAsync(entity.Id);
+            if (original == null)
+                return "Kayıt bulunamadı";
+
+            await _repository.DeleteAsync(original);
+            return "Kayıt kalıcı olarak silindi";
         }
 
         public async Task UpdateAsync(T entity)
@@ -82,14 +93,33 @@ namespace IK.BLL.Managers.Concretes
                 return;
             }
 
-            
 
-            await _repository.UpdateAsync(originalValue,entity);
+
+            await _repository.UpdateAsync(originalValue, entity);
         }
 
         public List<T> Where(Expression<Func<T, bool>> exp)
         {
             return _repository.Where(exp).ToList();
+        }
+
+        public async Task RestoreAsync(T entity)
+        {
+            if (entity == null)
+            {
+                return;
+            }
+
+            var original = await _repository.GetByIdAsync(entity.Id);
+            if (original == null)
+            {
+                return;
+            }
+
+            original.DeletedDate = null;
+            original.Status = ENTITIES.Enums.DataStatus.Updated;
+
+            await _repository.UpdateAsync(original, original);
         }
     }
 }

@@ -7,6 +7,50 @@
 
 <h2>İş Başvuruları</h2>
 
+<div class="d-flex justify-content-end mb-3">
+	
+	<div class="dropdown ">
+		<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+			Durum Filtre
+		</button>
+
+		<ul class="dropdown-menu">
+			<li>
+				<a class="dropdown-item"
+				   asp-action="Index"
+				   asp-route-status="">
+					Hepsi
+				</a>
+			</li>
+
+			<li>
+				<a class="dropdown-item"
+				   asp-action="Index"
+				   asp-route-status="@ApplicationStatus.Pending">
+					Beklemede
+				</a>
+			</li>
+
+			<li>
+				<a class="dropdown-item"
+				   asp-action="Index"
+				   asp-route-status="@ApplicationStatus.Approved">
+					Onaylandı
+				</a>
+			</li>
+
+			<li>
+				<a class="dropdown-item"
+				   asp-action="Index"
+				   asp-route-status="@ApplicationStatus.Rejected">
+					Reddedildi
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
 <table class="table table-bordered table-striped mt-3">
 	<thead>
 		<tr>

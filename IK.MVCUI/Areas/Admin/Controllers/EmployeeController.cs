@@ -16,7 +16,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         readonly IPositionManager _positionManager;
         readonly IBranchManager _branchManager;
         readonly IAppUserManager _appUserManager;
-        public EmployeeController(IEmployeeManager employeeManager, IDepartmantManager departmantManager, IPositionManager positionManager, IBranchManager branchManager,IAppUserManager appUserManager)
+        public EmployeeController(IEmployeeManager employeeManager, IDepartmantManager departmantManager, IPositionManager positionManager, IBranchManager branchManager, IAppUserManager appUserManager)
         {
             _employeeManager = employeeManager;
             _departmantManager = departmantManager;
@@ -46,14 +46,14 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeCreatePageVm vm,IFormFile formFile)
+        public async Task<IActionResult> Create(EmployeeCreatePageVm vm, IFormFile formFile)
         {
             if (!ModelState.IsValid)
             {
                 vm.Departmants = _departmantManager.GetActives().ToList();
                 vm.Positions = _positionManager.GetActives().ToList();
                 vm.Branches = _branchManager.GetActives().ToList();
-                
+
             }
 
             // 1) Identity Kullanıcı oluşturma
@@ -64,7 +64,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 "Employee"         // rol
             );
 
-           
+
             // 2) Employee oluşturma
             var employee = new IK.ENTITIES.Models.Employee
             {
@@ -83,19 +83,48 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 BranchId = vm.BranchId,
                 DepartmanId = vm.DepartmanId,
                 PositionId = vm.PositionId,
-                AppUserId = appUser.Id  
+                AppUserId = appUser.Id
             };
 
             // 3) Dosya yolu oluşturma ve resim yükleme
-            Guid guid = Guid.NewGuid();
-            string fileExtension = Path.GetExtension(formFile.FileName);//dosyanın uzantısını aldık
+            //Guid guid = Guid.NewGuid();
+            //string fileExtension = Path.GetExtension(formFile.FileName);//dosyanın uzantısını aldık
 
-            vm.ImagePath = $"/images/{guid}.{fileExtension}";
+            //vm.ImagePath = $"/images/{guid}.{fileExtension}";
 
-            string path = $"{Directory.GetCurrentDirectory()}/wwwroot/{vm.ImagePath}";
+            //string path = $"{Directory.GetCurrentDirectory()}/wwwroot/{vm.ImagePath}";
 
-            FileStream fileStream = new(path, FileMode.Create);//path'i verdikten sonra Create ile o ilgili path'te dosyayı oluşturuyoruz
-            formFile.CopyTo(fileStream);
+            //FileStream fileStream = new(path, FileMode.Create);//path'i verdikten sonra Create ile o ilgili path'te dosyayı oluşturuyoruz
+            //formFile.CopyTo(fileStream);
+
+            if (formFile != null && formFile.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot/images/employees"
+                );
+
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                string extension = Path.GetExtension(formFile.FileName);
+                if (string.IsNullOrEmpty(extension))
+                    extension = ".jpg";
+
+                string fileName = $"{Guid.NewGuid()}{extension}";
+                string fullPath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(
+                    fullPath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+
+                employee.ImagePath = "/images/employees/" + fileName;
+            }
 
             // 4) Employee kaydetme
             await _employeeManager.CreateAsync(employee);
@@ -139,7 +168,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 vm.Departmants = _departmantManager.GetActives();
                 vm.Positions = _positionManager.GetActives();
                 vm.Branches = _branchManager.GetActives();
-                
+
             }
 
             var employee = await _employeeManager.GetByIdAsync(vm.Id);
@@ -162,13 +191,43 @@ namespace IK.MVCUI.Areas.Admin.Controllers
 
 
 
-
+        //Soft Delete(Pasife Çekme)
         public async Task<IActionResult> Pacify(int id)
         {
-            await _employeeManager.MakePassiveAsync(await _employeeManager.GetByIdAsync(id));
+            var employee = await _employeeManager.GetByIdAsync(id);
+            if (employee == null)
+                return NotFound();
+
+            await _employeeManager.MakePassiveAsync(employee);
             return RedirectToAction("Index");
         }
 
+        //Hard Delete(Kalıcı Silme)
+        public async Task<IActionResult> Delete(int id)
+        {
+            var employee = await _employeeManager.GetByIdAsync(id);
+            if (employee == null)
+                return NotFound();
 
+            await _employeeManager.DeleteAsync(employee);
+
+            return RedirectToAction("Passives");
+        }
+
+        //Restore(Pasiften Aktife Alma)
+        public async Task<IActionResult> Restore(int id)
+        {
+            var employee = await _employeeManager.GetByIdAsync(id);
+            if (employee == null)
+                return NotFound();
+            await _employeeManager.RestoreAsync(employee);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Passives()
+        {
+            var passives = _employeeManager.GetPassives();
+            return View(passives);
+        }
     }
 }

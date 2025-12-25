@@ -23,6 +23,7 @@ namespace IK.BLL.Managers.Abstracts
         Task UpdateAsync(T entity);
         Task<string> DeleteAsync(T entity);
         Task MakePassiveAsync(T entity);
+        Task RestoreAsync(T entity);
 
     }
 }

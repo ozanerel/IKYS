@@ -1,5 +1,7 @@
 ﻿using IK.BLL.Managers.Abstracts;
 using IK.ENTITIES.Models;
+using IK.MVCUI.Areas.Employee.Models.PageVms;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +73,42 @@ namespace IK.MVCUI.Areas.Employee.Controllers
             TempData["Success"] = "Profil bilgileriniz güncellendi.";
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> ChangePassword()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordPageVm pageVm)
+        {
+
+
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return RedirectToAction("Login", "Account");
+
+            if (pageVm.NewPassword != pageVm.ConfirmNewPassword)
+            {
+                TempData["PasswordError"] = "Yeni Şifreler Uyuşmuyor!";
+                return View();
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, pageVm.OldPassword, pageVm.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                TempData["PasswordError"] = "Şifre Değiştirme Başarısız Oldu. Lütfen Eski Şifrenizi Kontrol Edin.";
+                return View();
+            }
+
+            TempData["Success"] = "Şifreniz Başarıyla Değiştirildi.";
+            return RedirectToAction("Index");
+
+
         }
     }
 }

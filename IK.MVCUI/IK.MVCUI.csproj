@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IK.BLL\IK.BLL.csproj" />
+    <ProjectReference Include="..\IK.COMMON\IK.COMMON.csproj" />
     <ProjectReference Include="..\IK.CONF\IK.CONF.csproj" />
     <ProjectReference Include="..\IK.DAL\IK.DAL.csproj" />
     <ProjectReference Include="..\IK.ENTITIES\IK.ENTITIES.csproj" />
