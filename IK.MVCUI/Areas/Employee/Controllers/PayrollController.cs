@@ -1,4 +1,5 @@
 ﻿using IK.BLL.Managers.Abstracts;
+using IK.BLL.Services.Abstracts;
 using IK.ENTITIES.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,15 +12,14 @@ namespace IK.UI.Areas.Employee.Controllers
         private readonly IPayrollManager _payrollManager;
         private readonly IEmployeeManager _employeeManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IPayrollPdfService _payrollPdfService;
 
-        public PayrollController(
-            IPayrollManager payrollManager,
-            IEmployeeManager employeeManager,
-            UserManager<AppUser> userManager)
+        public PayrollController(IPayrollManager payrollManager,IEmployeeManager employeeManager,UserManager<AppUser> userManager,IPayrollPdfService payrollPdfService)
         {
             _payrollManager = payrollManager;
             _employeeManager = employeeManager;
             _userManager = userManager;
+            _payrollPdfService = payrollPdfService;
         }
 
         public async Task<IActionResult> Index()
@@ -41,5 +41,18 @@ namespace IK.UI.Areas.Employee.Controllers
 
             return View(payrolls);
         }
+
+        public async Task<IActionResult> DownloadPdf(int id)
+        {
+            var payroll = await _payrollManager.GetByIdAsync(id);
+
+            if (payroll == null)
+                return NotFound();
+
+            var pdf = _payrollPdfService.GeneratePayrollPdf(payroll);
+
+            return File(pdf, "application/pdf", $"bordro_{payroll.Period}.pdf");
+        }
+
     }
 }

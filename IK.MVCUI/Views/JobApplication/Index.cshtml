@@ -68,6 +68,8 @@
         <div class="success">@TempData["Success"]</div>
     }
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <form asp-action="Index" asp-controller="JobApplication" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="applicantName">Ad Soyad *</label>
@@ -98,8 +100,17 @@
         </div>
 
         <div class="form-group">
-            <input type="checkbox" id="privacy" name="PrivacyAccepted" required>
-            <label for="privacy">Verilerimin saklanmasını ve işlenmesini kabul ediyorum *</label>
+            <input type="hidden" name="PrivacyAccepted" value="false" />
+
+            <input type="checkbox"
+                   id="privacy"
+                   name="PrivacyAccepted"
+                   value="true"
+                   required />
+
+            <label for="privacy">
+                Verilerimin saklanmasını ve işlenmesini kabul ediyorum *
+            </label>
         </div>
 
         <button type="submit">Başvuruyu Gönder</button>

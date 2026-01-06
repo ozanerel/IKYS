@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using IK.ENTITIES.Models;
 using IK.BLL.Services.Concretes;
 using IK.BLL.Services.Abstracts;
+using IK.MVCUI.Areas.Admin.Models.PageVms;
 
 namespace IK.MVCUI.Areas.Admin.Controllers
 {
@@ -23,7 +24,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
 
         public JobApplicationController(
             IJobApplicationManager jobApplicationManager,
-            IPositionManager positionManager,IEmployeeManager employeeManager,UserManager<AppUser> userManager,IEmployeeHireService employeeHireService)
+            IPositionManager positionManager, IEmployeeManager employeeManager, UserManager<AppUser> userManager, IEmployeeHireService employeeHireService)
         {
             _jobApplicationManager = jobApplicationManager;
             _positionManager = positionManager;
@@ -59,18 +60,27 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         }
 
         // 3) ONAYLA
-        public async Task<IActionResult> Approve(int id)
+        [HttpPost]
+        public async Task<IActionResult> Approve(JobApplication model)
         {
-            var app = await _jobApplicationManager.GetByIdAsync(id);
+            var app = await _jobApplicationManager.GetByIdAsync(model.Id);
             if (app == null) return NotFound();
 
-            //Başvuruyu onaylama 
-            await _jobApplicationManager.ApproveApplicationAsync(id);
+            // Admin tarafından doldurulan alanlar
+            app.TCKN = model.TCKN;
+            app.BirthDate = model.BirthDate;
+            app.Salary = model.Salary;
+            app.Gender = model.Gender;
+            app.MaritalStatus = model.MaritalStatus;
+            app.JobType = model.JobType;
 
+            await _jobApplicationManager.UpdateAsync(app);
+            await _jobApplicationManager.ApproveApplicationAsync(app.Id);
             await _employeeHireService.HireFromJobApplication(app);
 
-            return RedirectToAction("Details", new { id });
+            return RedirectToAction("Details", new { id = app.Id });
         }
+
 
         // 4) REDDET
         public async Task<IActionResult> Reject(int id)
@@ -85,6 +95,8 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             await _jobApplicationManager.SetPendingAsync(id);
             return RedirectToAction("Details", new { id });
         }
+
+
 
     }
 }

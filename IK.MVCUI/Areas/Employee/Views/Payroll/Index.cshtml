@@ -22,6 +22,7 @@ else
                 <th>Brüt Maaş</th>
                 <th>Kesinti</th>
                 <th>Net Maaş</th>
+                <th>PDF</th>
             </tr>
         </thead>
         <tbody>
@@ -30,9 +31,10 @@ else
                 <tr>
                     <td>@item.Period</td>
                     <td>@item.TotalHours</td>
-                    <td>@item.GrossSalary ₺</td>
-                    <td>@item.Deductions ₺</td>
-                    <td><strong>@item.NetSalary ₺</strong></td>
+                    <td>@item.GrossSalary.ToString("C")</td>
+                    <td>@item.Deductions.ToString("C")</td>
+                    <td><strong>@item.NetSalary.ToString("C")</strong></td>
+                    <td><a asp-area="Employee" asp-controller="Payroll" asp-action="DownloadPdf" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">PDF İndir</a></td>
                 </tr>
             }
         </tbody>

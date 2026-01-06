@@ -15,14 +15,14 @@ namespace IK.MVCUI.Areas.Admin.Controllers
     {
         private readonly MyContext _context;
         private readonly IBranchManager _branchManager;
-        private readonly IPositionManager _positionManager;
+        private readonly IDepartmantManager _departmantManager;
         private readonly IEmployeeManager _employeeManager;
         private readonly UserManager<AppUser> _userManager;
-        public HomeController(MyContext context, UserManager<AppUser> userManager, IBranchManager branchManager, IPositionManager positionManager, IEmployeeManager employeeManager)
+        public HomeController(MyContext context, UserManager<AppUser> userManager, IBranchManager branchManager, IDepartmantManager departmantManager, IEmployeeManager employeeManager)
         {
             _context = context;
             _branchManager = branchManager;
-            _positionManager = positionManager;
+            _departmantManager = departmantManager;
             _employeeManager = employeeManager;
             _userManager = userManager;
         }
@@ -34,8 +34,8 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             int totalBranches = _branchManager.GetActives().Count(); //Sadece Aktifleri sayar.
             ViewBag.TotalBranches = totalBranches;
 
-            int totalPositions = _positionManager.GetActives().Count();
-            ViewBag.TotalPositions = totalPositions;
+            int TotalDepartmants = _departmantManager.GetActives().Count();
+            ViewBag.TotalDepartmants = TotalDepartmants;
 
             ViewBag.TotalEmployees = await _context.Employees.CountAsync();
 
@@ -51,6 +51,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
                 FullName = e.FirstName + " " + e.LastName,
                 PositionName = e.Position != null ? e.Position.PositionName : "Atanmamış",
                 BranchName = e.Branch != null ? e.Branch.BranchName : "-",
+                Age = e.Age,
                 StartedDate = e.StartDate,
                 Salary = e.Salary
             }).ToList();

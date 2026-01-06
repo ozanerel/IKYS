@@ -16,7 +16,7 @@
             </div>
 
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
+                <a asp-controller="Branch" asp-action="Index" class="small text-white stretched-link">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -24,12 +24,12 @@
     <div class="col-xl-3 col-md-6">
         <div class="card bg-warning text-white mb-4">
             <div class="card-body">
-                Toplam Gider
+                Toplam Çalışan Sayısı
 
-                <h3>0</h3>
+                <h3>@ViewBag.TotalEmployees</h3>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
+                <a asp-controller="Employee" asp-action="Index" class="small text-white stretched-link">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -37,12 +37,12 @@
     <div class="col-xl-3 col-md-6">
         <div class="card bg-success text-white mb-4">
             <div class="card-body">
-                Toplam Aktif Pozisyon Sayısı
+                Toplam Aktif Departman Sayısı
 
-                <h3>@ViewBag.TotalPositions</h3>
+                <h3>@ViewBag.TotalDepartmants</h3>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
+                <a asp-controller="Departmant" asp-action="Index" class="small text-white stretched-link">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -95,7 +95,7 @@
                             <td>@item.FullName</td>
                             <td>@item.PositionName</td>
                             <td>@item.BranchName</td>
-                            <td>61</td>
+                            <td>@item.Age</td>
                             <td>@item.StartedDate.ToString("dd.MM.yyyy")</td>
                             <td>@item.Salary.ToString("C")</td>@* C para formatına sokmasına yardımcı oluyor *@
                         </tr>

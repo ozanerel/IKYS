@@ -1,5 +1,6 @@
 ﻿@using IK.ENTITIES.Enums
 @model IK.ENTITIES.Models.JobApplication
+
 @{
     ViewData["Title"] = "Başvuru Detay";
     Layout = "~/Views/Shared/_AreaLayout.cshtml";
@@ -7,12 +8,13 @@
 
 <h3>@Model.ApplicantName Başvurusu</h3>
 
+<!-- BAŞVURU BİLGİLERİ -->
 <div class="card mt-3">
     <div class="card-body">
         <p><strong>Email:</strong> @Model.Email</p>
         <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
-        <p><strong>Pozisyon ID:</strong> @Model.PositionId</p>
-        <p><strong>Başvuru Tarihi:</strong> @Model.CreatedDate</p>
+        <p><strong>Pozisyon:</strong> @Model.Position?.PositionName</p>
+        <p><strong>Başvuru Tarihi:</strong> @Model.CreatedDate.ToShortDateString()</p>
 
         <p>
             <strong>Durum:</strong>
@@ -32,24 +34,95 @@
 
         <p>
             <strong>CV:</strong>
-            <a href="@Model.CVFilePath" target="_blank" class="btn btn-secondary btn-sm">CV Görüntüle</a>
+            <a href="@Model.CVFilePath" target="_blank" class="btn btn-secondary btn-sm">
+                CV Görüntüle
+            </a>
         </p>
     </div>
 </div>
 
-<!-- BUTONLAR (duruma göre değişir) -->
-<div class="mt-3">
-    @if (Model.ApplicationStatus == ApplicationStatus.Pending)
-    {
-        <a class="btn btn-success" asp-action="Approve" asp-route-id="@Model.Id">Onayla</a>
-        <a class="btn btn-danger" asp-action="Reject" asp-route-id="@Model.Id">Reddet</a>
-    }
-    else if (Model.ApplicationStatus == ApplicationStatus.Approved)
-    {
-        <span class="text-success fw-bold">Bu başvuru ONAYLANDI ✔</span>
-    }
-    else if (Model.ApplicationStatus == ApplicationStatus.Rejected)
-    {
-        <span class="text-danger fw-bold">Bu başvuru REDDEDİLDİ ✖</span>
-    }
-</div>
+<!-- SADECE PENDING İKEN GÖZÜKECEK ONAY FORMU -->
+@if (Model.ApplicationStatus == ApplicationStatus.Pending)
+{
+    <form asp-action="Approve" method="post" class="card mt-4">
+        <div class="card-header bg-success text-white">
+            İşe Alım Onayı
+        </div>
+
+        <div class="card-body">
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label class="form-label">TCKN</label>
+                <input name="TCKN" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Doğum Tarihi</label>
+                <input name="BirthDate" type="date" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Maaş</label>
+                <input name="Salary" type="number" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Cinsiyet</label>
+                <select name="Gender" class="form-select" required>
+                    <option value="">Seçiniz</option>
+                    @foreach (Gender g in Enum.GetValues(typeof(Gender)))
+                    {
+                        <option value="@g">@g</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Medeni Hal</label>
+                <select name="MaritalStatus" class="form-select" required>
+                    <option value="">Seçiniz</option>
+                    @foreach (MaritalStatus m in Enum.GetValues(typeof(MaritalStatus)))
+                    {
+                        <option value="@m">@m</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Çalışma Tipi</label>
+                <select name="JobType" class="form-select" required>
+                    @foreach (JobType j in Enum.GetValues(typeof(JobType)))
+                    {
+                        <option value="@j">@j</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                Onayla ve Çalışan Oluştur
+            </button>
+
+            <a asp-action="Reject"
+               asp-route-id="@Model.Id"
+               class="btn btn-danger ms-2">
+                Reddet
+            </a>
+        </div>
+    </form>
+}
+
+<!-- ONAYLANDI / REDDEDİLDİ MESAJI -->
+@if (Model.ApplicationStatus == ApplicationStatus.Approved)
+{
+    <div class="alert alert-success mt-4">
+        Bu başvuru başarıyla onaylandı ve çalışan oluşturuldu.
+    </div>
+}
+
+@if (Model.ApplicationStatus == ApplicationStatus.Rejected)
+{
+    <div class="alert alert-danger mt-4">
+        Bu başvuru reddedildi.
+    </div>
+}

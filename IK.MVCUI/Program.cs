@@ -1,10 +1,13 @@
 using IK.BLL.DependencyResolvers;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(); //Db update hatasý aldýðým için loglarý konsola yazdýrmamýz için iki kodu yazdýk
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 
 // Add services to the container.

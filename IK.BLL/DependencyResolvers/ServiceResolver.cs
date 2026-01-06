@@ -14,6 +14,7 @@ namespace IK.BLL.DependencyResolvers
         public static void AddBusinessService(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeHireService,EmployeeHireService>();
+            services.AddScoped<IPayrollPdfService, PayrollPdfService>();
         }
     }
 }

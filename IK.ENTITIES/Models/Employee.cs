@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,30 @@ namespace IK.ENTITIES.Models
 {
     public class Employee : BaseEntity
     {
+
         //Çalışan
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TCKN { get; set; }
         public DateTime BirthDate { get; set; }
+
+        [NotMapped] //Bu attribute sayesinde db tarafında tabloya eklenmez sadece entity tarafında var olmasını sağlar.
+        public int Age {
+            get
+            {
+                var today = DateTime.Today;
+                var age = today.Year - BirthDate.Year;
+
+                if (BirthDate.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            } 
+             
+        }
+
         public Gender Gender { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public string PhoneNumber { get; set; }

@@ -27,6 +27,7 @@ namespace IK.UI.Areas.Admin.Controllers
 
 
         // Maaş oluşturma sayfası
+      
         public async Task<IActionResult> Create()
         {
             var vm = new PayrollCreatePageVm

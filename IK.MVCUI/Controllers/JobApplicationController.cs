@@ -34,11 +34,39 @@ namespace IK.MVCUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(JobApplication model, IFormFile CVFile)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Positions = await _positionManager.GetAllAsync();
-                return View(model);
-            }
+            #region Hatayı konsola yazdırma
+            //if (!model.PrivacyAccepted)
+            //{
+            //    ModelState.AddModelError("", "Veri işleme onayı zorunludur.");
+            //}
+
+
+
+            //if (!ModelState.IsValid)
+            //{
+            //    var errors = ModelState
+            //        .Where(x => x.Value.Errors.Count > 0)
+            //        .Select(x => new
+            //        {
+            //            Field = x.Key,
+            //            Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
+            //        })
+            //        .ToList();
+
+            //    // DEBUG İÇİN
+            //    foreach (var err in errors)
+            //    {
+            //        Console.WriteLine($"FIELD: {err.Field}");
+            //        foreach (var msg in err.Errors)
+            //        {
+            //            Console.WriteLine($"ERROR: {msg}");
+            //        }
+            //    }
+
+            //    ViewBag.Positions = await _positionManager.GetAllAsync();
+            //    return View(model);
+            //} 
+            #endregion
 
             if (CVFile != null && CVFile.Length > 0)
             {
@@ -58,9 +86,16 @@ namespace IK.MVCUI.Controllers
             }
 
             model.ApplicationStatus = ApplicationStatus.Pending;
-            model.CreatedDate = DateTime.Now;
+            //model.CreatedDate = DateTime.Now;
+            model.ApplicateDate = DateTime.Now;
 
             await _jobApplicationManager.CreateAsync(model);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Positions = await _positionManager.GetAllAsync();
+                return View(model);
+            }
 
             TempData["Success"] = "Başvurunuz başarıyla alınmıştır!";
             return RedirectToAction("Index");

@@ -1,15 +1,18 @@
-﻿using IK.ENTITIES.Enums;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using IK.ENTITIES.Enums;
 using IK.ENTITIES.Models;
 
 namespace IK.MVCUI.Areas.Admin.Models.PageVms
 {
     public class EmployeeCreatePageVm
     {
+
         // Employee Bilgileri
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TCKN { get; set; }
         public DateTime BirthDate { get; set; }
+        public int Age { get; set; }
         public Gender Gender { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public string PhoneNumber { get; set; }
