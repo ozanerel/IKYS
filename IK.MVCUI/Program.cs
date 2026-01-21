@@ -1,4 +1,5 @@
 using IK.BLL.DependencyResolvers;
+using IK.MVCUI.Services;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using QuestPDF.Infrastructure;
@@ -18,7 +19,13 @@ builder.Services.AddIdentityService();
 builder.Services.AddRepositoryService();
 builder.Services.AddManagerService();
 builder.Services.AddBusinessService();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<IJobApplicationApiService,JobApplicationApiService>(opt =>
+{
+    opt.BaseAddress = new Uri("http://localhost:5171/api/");//Tüketilecek API'nin base adresi
+
+});//Eger bir API consume edilecekse HTTP client tarafýnda oldugumuz ifadesini Middleware'e bildirmeliyiz.
+
+builder.Services.AddDistributedMemoryCache();//Eger Session kompleks yapýlarla calýsmak icin Extension metodu ekleme durumuna maruz kalacaksa bu kod projenizin o ilgili Session alanýný saglýklý calýstýrabilmesi icin gereklidir
 
 //Dosya yükleme limiti
 builder.Services.Configure<FormOptions>(options =>
@@ -41,6 +48,13 @@ builder.Services.ConfigureApplicationCookie(x =>
     //x.ReturnUrlParameter = "returnUrl";
 });
 
+builder.Services.AddSession(x =>
+{
+    x.IdleTimeout = TimeSpan.FromMinutes(30);//30 dk iþlem yapýlmazsa session silinecek
+    x.Cookie.HttpOnly = true;
+    x.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,6 +69,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
