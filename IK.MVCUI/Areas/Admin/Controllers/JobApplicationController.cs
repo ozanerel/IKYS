@@ -8,6 +8,8 @@ using IK.ENTITIES.Models;
 using IK.BLL.Services.Concretes;
 using IK.BLL.Services.Abstracts;
 using IK.MVCUI.Areas.Admin.Models.PageVms;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace IK.MVCUI.Areas.Admin.Controllers
 {
@@ -15,46 +17,78 @@ namespace IK.MVCUI.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class JobApplicationController : Controller
     {
-        private readonly IJobApplicationManager _jobApplicationManager;
-        private readonly IPositionManager _positionManager;
-        private readonly IEmployeeManager _employeeManager;
+        private readonly IHttpClientFactory _clientFactory;
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmployeeHireService _employeeHireService;
+        private readonly IPositionManager _positionManager;
 
 
-        public JobApplicationController(
-            IJobApplicationManager jobApplicationManager,
-            IPositionManager positionManager, IEmployeeManager employeeManager, UserManager<AppUser> userManager, IEmployeeHireService employeeHireService)
+        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeHireService employeeHireService, IHttpClientFactory clientFactory,IPositionManager positionManager)
         {
-            _jobApplicationManager = jobApplicationManager;
-            _positionManager = positionManager;
-            _employeeManager = employeeManager;
+            _clientFactory = clientFactory;
             _userManager = userManager;
             _employeeHireService = employeeHireService;
+            _positionManager = positionManager;
+        }
+
+        private HttpClient ApiClient()
+        {
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri("http://localhost:5171/");
+            return client;
         }
 
         // 1) TÜM BAŞVURULARI LİSTELE
         public async Task<IActionResult> Index(ApplicationStatus? status)
         {
-            var applications = await _jobApplicationManager.GetAllAsync();
+            var response = await ApiClient().GetAsync("api/JobApplications");
+            var json = await response.Content.ReadAsStringAsync();
+            //var applications = JsonConvert.DeserializeObject<List<JobApplication>>(json);
+            var entityList = JsonConvert.DeserializeObject<List<JobApplication>>(json);
 
-            if (status.HasValue)
+            var vmList = entityList.Select(x => new AdminJobApplicationPageVm
             {
-                applications = applications
-                    .Where(x => x.ApplicationStatus == status.Value)
-                    .ToList();
-            }
+                Id = x.Id,
+                ApplicantName = x.ApplicantName,
+                Email = x.Email,
+                PositionId = x.PositionId,
+                PositionName = "-", // API’de Position yok
+                ApplicationStatus = x.ApplicationStatus,
+                //CreatedDate = x.CreatedDate
+            }).ToList();
 
-            ViewBag.SelectedStatus = status;
+            return View(vmList);
 
-            return View(applications);
+
+            //if (status.HasValue)
+            //{
+            //    applications = applications.Where(x => x.ApplicationStatus == status).ToList();
+            //}
+
+            //return View(applications);
         }
 
         // 2) DETAY SAYFASI
         public async Task<IActionResult> Details(int id)
         {
-            var app = await _jobApplicationManager.GetByIdAsync(id);
-            if (app == null) return NotFound();
+            var response = await ApiClient().GetAsync($"api/JobApplications/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return NotFound();
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var app = JsonConvert.DeserializeObject<JobApplication>(json);
+
+            //var vm = new HireEmployeePageVm
+            //{
+            //    JobApplicationId = app.Id,
+            //    ApplicantName = app.ApplicantName,
+            //    Email = app.Email,
+            //    PhoneNumber = app.PhoneNumber,
+            //    PositionId = app.PositionId
+            //};
 
             return View(app);
         }
@@ -63,36 +97,28 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Approve(JobApplication model)
         {
-            var app = await _jobApplicationManager.GetByIdAsync(model.Id);
-            if (app == null) return NotFound();
+            var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
 
-            // Admin tarafından doldurulan alanlar
-            app.TCKN = model.TCKN;
-            app.BirthDate = model.BirthDate;
-            app.Salary = model.Salary;
-            app.Gender = model.Gender;
-            app.MaritalStatus = model.MaritalStatus;
-            app.JobType = model.JobType;
+            await ApiClient().PutAsync($"api/JobApplications/{model.Id}/approve",
+            null);
 
-            await _jobApplicationManager.UpdateAsync(app);
-            await _jobApplicationManager.ApproveApplicationAsync(app.Id);
-            await _employeeHireService.HireFromJobApplication(app);
+            await _employeeHireService.HireFromJobApplication(model);
 
-            return RedirectToAction("Details", new { id = app.Id });
+            return RedirectToAction("Details", new { id = model.Id });
         }
 
 
         // 4) REDDET
         public async Task<IActionResult> Reject(int id)
         {
-            await _jobApplicationManager.RejectApplicationAsync(id);
+            await ApiClient().PutAsync($"api/JobApplications/{id}/reject", null);
             return RedirectToAction("Details", new { id });
         }
 
         // 5) PENDING YAP
         public async Task<IActionResult> Pending(int id)
         {
-            await _jobApplicationManager.SetPendingAsync(id);
+            await ApiClient().PutAsync($"api/JobApplications/{id}/pending", null);
             return RedirectToAction("Details", new { id });
         }
 

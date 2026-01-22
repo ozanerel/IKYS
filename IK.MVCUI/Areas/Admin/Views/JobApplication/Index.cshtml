@@ -1,5 +1,7 @@
 ﻿@using IK.ENTITIES.Enums
-@model List<IK.ENTITIES.Models.JobApplication>
+
+@model List<IK.MVCUI.Areas.Admin.Models.PageVms.AdminJobApplicationPageVm>
+
 @{
 	ViewData["Title"] = "İş Başvuruları";
 	Layout = "~/Views/Shared/_AreaLayout.cshtml";
@@ -8,7 +10,7 @@
 <h2>İş Başvuruları</h2>
 
 <div class="d-flex justify-content-end mb-3">
-	
+
 	<div class="dropdown ">
 		<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
 			Durum Filtre
@@ -67,7 +69,7 @@
 			<tr>
 				<td>@app.ApplicantName</td>
 				<td>@app.Email</td>
-				<td>@app.Position.PositionName</td>
+				<td>@app.PositionName</td>
 				<td>
 					@if (app.ApplicationStatus == ApplicationStatus.Pending)
 					{
