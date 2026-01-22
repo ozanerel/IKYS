@@ -30,7 +30,7 @@ namespace IK.BLL.Services.Concretes
             var user = new AppUser
             {
                 UserName = app.Email,
-                Email = app.Email,
+                Email = "",
                 EmailConfirmed = true,
                 CreatedDate = DateTime.Now,
                 Status = DataStatus.Inserted

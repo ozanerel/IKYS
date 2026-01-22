@@ -44,13 +44,13 @@
 <!-- SADECE PENDING İKEN GÖZÜKECEK ONAY FORMU -->
 @if (Model.ApplicationStatus == ApplicationStatus.Pending)
 {
-    <form asp-action="Approve" method="post" class="card mt-4">
+    <form asp-area="Admin" asp-controller="JobApplication" asp-action="Approve" method="post" class="card mt-4">
         <div class="card-header bg-success text-white">
             İşe Alım Onayı
         </div>
 
         <div class="card-body">
-            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="JobApplicationId" value="@Model.Id" />
 
             <div class="mb-3">
                 <label class="form-label">TCKN</label>
@@ -103,7 +103,7 @@
                 Onayla ve Çalışan Oluştur
             </button>
 
-            <a asp-action="Reject"
+            <a asp-area="Admin" asp-controller="JobApplication" asp-action="Reject"
                asp-route-id="@Model.Id"
                class="btn btn-danger ms-2">
                 Reddet

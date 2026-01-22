@@ -10,5 +10,6 @@ namespace IK.BLL.Services.Abstracts
     public interface IEmployeeHireService
     {
         Task HireFromJobApplication(JobApplication app);
+       
     }
 }

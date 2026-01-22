@@ -21,14 +21,16 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmployeeHireService _employeeHireService;
         private readonly IPositionManager _positionManager;
+        private readonly IJobApplicationManager _jobApplicationManager;
 
 
-        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeHireService employeeHireService, IHttpClientFactory clientFactory,IPositionManager positionManager)
+        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeHireService employeeHireService, IHttpClientFactory clientFactory,IPositionManager positionManager,IJobApplicationManager jobApplicationManager)
         {
             _clientFactory = clientFactory;
             _userManager = userManager;
             _employeeHireService = employeeHireService;
             _positionManager = positionManager;
+            _jobApplicationManager = jobApplicationManager;
         }
 
         private HttpClient ApiClient()
@@ -81,30 +83,39 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             var json = await response.Content.ReadAsStringAsync();
             var app = JsonConvert.DeserializeObject<JobApplication>(json);
 
-            //var vm = new HireEmployeePageVm
-            //{
-            //    JobApplicationId = app.Id,
-            //    ApplicantName = app.ApplicantName,
-            //    Email = app.Email,
-            //    PhoneNumber = app.PhoneNumber,
-            //    PositionId = app.PositionId
-            //};
+            
 
             return View(app);
         }
 
         // 3) ONAYLA
         [HttpPost]
-        public async Task<IActionResult> Approve(JobApplication model)
+        public async Task<IActionResult> Approve(HireEmployeePageVm vm)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            // 1️⃣ MVC DB'den JobApplication'ı çek
+            var jobApplication = await _jobApplicationManager.GetByIdAsync(vm.JobApplicationId);
 
-            await ApiClient().PutAsync($"api/JobApplications/{model.Id}/approve",
-            null);
+            if (jobApplication == null)
+                return NotFound();
 
-            await _employeeHireService.HireFromJobApplication(model);
+            // 2️⃣ Admin alanlarını doldur
+            jobApplication.TCKN = vm.TCKN;
+            jobApplication.BirthDate = vm.BirthDate;
+            jobApplication.Salary = vm.Salary;
+            jobApplication.Gender = vm.Gender;
+            jobApplication.MaritalStatus = vm.MaritalStatus;
+            jobApplication.JobType = vm.JobType;
 
-            return RedirectToAction("Details", new { id = model.Id });
+            // 3️⃣ API'ye SADECE STATUS güncellemesi gönder
+            await ApiClient().PutAsync(
+                $"api/JobApplications/{vm.JobApplicationId}/approve",
+                null
+            );
+
+            // 4️⃣ MVC tarafında işe alım (EMAIL %100 DOLU)
+            await _employeeHireService.HireFromJobApplication(jobApplication);
+
+            return RedirectToAction("Details", new { id = vm.JobApplicationId });
         }
 
 
