@@ -26,11 +26,21 @@ namespace IK.BLL.Services.Concretes
 
         public async Task HireFromJobApplication(JobApplication app)
         {
+
+            //Email kontrol
+            if (string.IsNullOrWhiteSpace(app.Email))
+                throw new Exception("Başvuru email bilgisi boş.");
+
+            var existingUser = await _userManager.FindByEmailAsync(app.Email);
+            if (existingUser != null)
+                throw new Exception($"Bu email ile zaten bir kullanıcı var: {app.Email}");
+
+
             // 1) AppUser oluştur
             var user = new AppUser
             {
                 UserName = app.Email,
-                Email = "",
+                Email = app.Email,
                 EmailConfirmed = true,
                 CreatedDate = DateTime.Now,
                 Status = DataStatus.Inserted
