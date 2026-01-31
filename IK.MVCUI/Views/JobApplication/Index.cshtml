@@ -87,6 +87,11 @@
         </div>
 
         <div class="form-group">
+            <label for="address">Adres *</label>
+            <input asp-for="Address" type="text" id="address" required />
+        </div>
+
+        <div class="form-group">
             <label for="position">Pozisyon *</label>
             <select asp-for="PositionId" asp-items="@(new SelectList(ViewBag.Positions, "Id", "PositionName"))" required>
                 <option value="">-- Pozisyon Seçiniz --</option>

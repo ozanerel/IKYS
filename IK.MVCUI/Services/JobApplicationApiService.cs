@@ -19,6 +19,7 @@ namespace IK.MVCUI.Services
             content.Add(new StringContent(jobApplication.ApplicantName), "ApplicantName");
             content.Add(new StringContent(jobApplication.Email), "Email");
             content.Add(new StringContent(jobApplication.PhoneNumber), "PhoneNumber");
+            content.Add(new StringContent(jobApplication.Address), "Address");
             content.Add(new StringContent(jobApplication.PositionId.ToString()), "PositionId");
             content.Add(new StringContent(jobApplication.PrivacyAccepted.ToString()), "PrivacyAccepted");
 
@@ -29,7 +30,7 @@ namespace IK.MVCUI.Services
                 var fileContent = new StreamContent(stream);
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue(cvFile.ContentType);
 
-                content.Add(fileContent, "CVFile", cvFile.FileName);
+                content.Add(fileContent, "CvFilePath", cvFile.FileName);
             }
 
             var response = await _httpClient.PostAsync("jobapplications", content);

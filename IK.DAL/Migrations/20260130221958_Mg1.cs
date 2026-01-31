@@ -349,6 +349,7 @@ namespace IK.DAL.Migrations
                     ApplicantName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TCKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
@@ -504,8 +505,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "6ca0b0ba-764e-4473-8581-59c79edb66e7", "Admin", "ADMIN" },
-                    { 2, "4a71da30-71c3-4d1d-b665-35b075357eec", "Employee", "EMPLOYEE" }
+                    { 1, "31f64d55-6499-4f6a-93f0-5f43ac3b538f", "Admin", "ADMIN" },
+                    { 2, "57fddd9e-8e19-423e-9e6e-8848274d7214", "Employee", "EMPLOYEE" }
                 });
 
             migrationBuilder.InsertData(
@@ -513,8 +514,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ActivationCode", "ConcurrencyStamp", "CreatedDate", "DeletedDate", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UpdatedDate", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, new Guid("00000000-0000-0000-0000-000000000000"), "f94073ae-4338-48ac-accc-ce6ed15d3368", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ozan@ik.com", true, false, null, "OZAN@IK.COM", "OZAN", "AQAAAAIAAYagAAAAEDIy3tqRjUxvIlqGggu2LwHxAfszSe498uyF0egDD0jPnpZ+FhiPEAavsrnedhEKNw==", null, false, "6842c684-c4e2-411f-aa2c-41d938ca9efc", 0, false, null, "ozan" },
-                    { 2, 0, new Guid("00000000-0000-0000-0000-000000000000"), "c89cba71-86dd-4ecf-a171-c15372d7884e", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ahmet@ik.com", true, false, null, "AHMET@IK.COM", "AHMET", "AQAAAAIAAYagAAAAEPUS0qkV9lOxCxX6cOFP3ITriHq50KjmXb/xYzP2ZGK2Zidri7YGYHaKkYUGMqZuPQ==", null, false, "51e698ea-5330-4784-a033-3d9ebc56e3c2", 0, false, null, "ahmet" }
+                    { 1, 0, new Guid("00000000-0000-0000-0000-000000000000"), "628bd938-d079-46ed-8cd1-2e2e37d4106a", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ozan@ik.com", true, false, null, "OZAN@IK.COM", "OZAN", "AQAAAAIAAYagAAAAELKzbc3GYMduqoxPm0UhrslfmAR8nARBPdtMsqa9zoK07lSRhcBCISHEqtToPxP1bw==", null, false, "ee70dba0-dc2b-43b5-8101-a8e707560fbb", 0, false, null, "ozan" },
+                    { 2, 0, new Guid("00000000-0000-0000-0000-000000000000"), "35b76299-4fbc-4d0f-9c22-c10527dc055c", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ahmet@ik.com", true, false, null, "AHMET@IK.COM", "AHMET", "AQAAAAIAAYagAAAAEOElZmvcyI78qylYhLtvrHQPBoErXL2ckTfm2aEjOj3kPD30gY/MS+Blm7cNhbP68Q==", null, false, "3b5332db-f86b-4e69-811d-ec0e2e90dea6", 0, false, null, "ahmet" }
                 });
 
             migrationBuilder.InsertData(
@@ -522,8 +523,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "Address", "BranchName", "City", "CreatedDate", "DeletedDate", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "İstanbul Kadıköy", "Merkez Şube", "İstanbul", new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(886), null, 1, null },
-                    { 2, "Ankara Etimesgut", "Ankara Şube", "Ankara", new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(902), null, 1, null }
+                    { 1, "İstanbul Kadıköy", "Merkez Şube", "İstanbul", new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2206), null, 1, null },
+                    { 2, "Ankara Etimesgut", "Ankara Şube", "Ankara", new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2220), null, 1, null }
                 });
 
             migrationBuilder.InsertData(
@@ -540,8 +541,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "BranchId", "CreatedDate", "DeletedDate", "DepartmantName", "Description", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1011), null, "İK", "İnsan Kaynakları", 1, null },
-                    { 2, 2, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1013), null, "Yazılım", "Yazılım Geliştirme", 1, null }
+                    { 1, 1, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2384), null, "İK", "İnsan Kaynakları", 1, null },
+                    { 2, 2, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2386), null, "Yazılım", "Yazılım Geliştirme", 1, null }
                 });
 
             migrationBuilder.InsertData(
@@ -549,8 +550,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "DepartmantId", "MaxSalary", "MinSalary", "PositionName", "RequiredEducation", "RequiredExperience", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1333), null, 1, 12000m, 8000m, "İK Uzmanı", "Üniversite", "2 yıl", 1, null },
-                    { 2, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1335), null, 2, 15000m, 9000m, "Yazılım Geliştirici", "Üniversite", "3 yıl", 1, null }
+                    { 1, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2645), null, 1, 12000m, 8000m, "İK Uzmanı", "Üniversite", "2 yıl", 1, null },
+                    { 2, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2730), null, 2, 15000m, 9000m, "Yazılım Geliştirici", "Üniversite", "3 yıl", 1, null }
                 });
 
             migrationBuilder.InsertData(
@@ -558,17 +559,17 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "Address", "AppUserId", "BirthDate", "BranchId", "CreatedDate", "DeletedDate", "DepartmanId", "Email", "EndDate", "FirstName", "Gender", "ImagePath", "JobType", "LastName", "MaritalStatus", "PhoneNumber", "PositionId", "Salary", "StartDate", "Status", "TCKN", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "İstanbul", 1, new DateTime(2002, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1105), null, 1, "ozan@ik.com", null, "Ozan", 1, "/images/default.png", 1, "Erel", 1, "05000000001", 1, 10000m, new DateTime(2023, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1111), 1, "12345678901", null },
-                    { 2, "Ankara", 2, new DateTime(1992, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1115), null, 2, "ahmet@ik.com", null, "Ahmet", 1, "/images/default.png", 1, "Baykara", 2, "05000000002", 2, 9000m, new DateTime(2024, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1118), 1, "12345678902", null }
+                    { 1, "İstanbul", 1, new DateTime(2002, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2473), null, 1, "ozan@ik.com", null, "Ozan", 1, "/images/default.png", 1, "Erel", 1, "05000000001", 1, 10000m, new DateTime(2024, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2478), 1, "12345678901", null },
+                    { 2, "Ankara", 2, new DateTime(1992, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2484), null, 2, "ahmet@ik.com", null, "Ahmet", 1, "/images/default.png", 1, "Baykara", 2, "05000000002", 2, 9000m, new DateTime(2025, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2487), 1, "12345678902", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "JobApplications",
-                columns: new[] { "Id", "ApplicantName", "ApplicateDate", "ApplicationStatus", "BirthDate", "CVFilePath", "CreatedDate", "DeletedDate", "Email", "Gender", "JobType", "MaritalStatus", "PhoneNumber", "PositionId", "PrivacyAccepted", "Salary", "Status", "TCKN", "UpdatedDate" },
+                columns: new[] { "Id", "Address", "ApplicantName", "ApplicateDate", "ApplicationStatus", "BirthDate", "CVFilePath", "CreatedDate", "DeletedDate", "Email", "Gender", "JobType", "MaritalStatus", "PhoneNumber", "PositionId", "PrivacyAccepted", "Salary", "Status", "TCKN", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "Mehmet Demir", new DateTime(2025, 12, 20, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1177), 1, null, "CVs/MehmetDemir.pdf", new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1175), null, "mehmet@example.com", null, null, null, "05001112233", 2, null, null, 1, null, null },
-                    { 2, "Ayşe Yılmaz", new DateTime(2025, 12, 25, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1184), 2, null, "CVs/AyseYilmaz.pdf", new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1182), null, "ayse@example.com", null, null, null, "05004445566", 1, null, null, 1, null, null }
+                    { 1, "Istanbul, Turkey", "Mehmet Demir", new DateTime(2026, 1, 21, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2527), 1, null, "CVs/MehmetDemir.pdf", new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2526), null, "mehmet@example.com", null, null, null, "05001112233", 2, null, null, 1, null, null },
+                    { 2, "Ankara, Turkey", "Ayşe Yılmaz", new DateTime(2026, 1, 26, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2533), 2, null, "CVs/AyseYilmaz.pdf", new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2532), null, "ayse@example.com", null, null, null, "05004445566", 1, null, null, 1, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -576,8 +577,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "CreatedDate", "CurrentPositionId", "DeletedDate", "EmployeeId", "Notes", "PlannedPromotionDate", "Status", "TargetPositionId", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(961), 1, null, 1, "Başarılı performans", new DateTime(2026, 6, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(963), 1, 1, null },
-                    { 2, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(971), 2, null, 2, "Tecrübeyi artıracak", new DateTime(2026, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(972), 1, 2, null }
+                    { 1, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2323), 1, null, 1, "Başarılı performans", new DateTime(2026, 7, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2325), 1, 1, null },
+                    { 2, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2334), 2, null, 2, "Tecrübeyi artıracak", new DateTime(2027, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2335), 1, 2, null }
                 });
 
             migrationBuilder.InsertData(
@@ -585,8 +586,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "Certifications", "CreatedDate", "DeletedDate", "Education", "EducationLevel", "EmployeeId", "Experience", "Languages", "Skills", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "İK Sertifikası", new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1054), null, "Üniversite", 3, 1, "2 yıl", "İngilizce", "MS Office", 1, null },
-                    { 2, "MCP", new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1057), null, "Üniversite", 3, 2, "3 yıl", "İngilizce", "C#, ASP.NET", 1, null }
+                    { 1, "İK Sertifikası", new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2433), null, "Üniversite", 3, 1, "2 yıl", "İngilizce", "MS Office", 1, null },
+                    { 2, "MCP", new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2436), null, "Üniversite", 3, 2, "3 yıl", "İngilizce", "C#, ASP.NET", 1, null }
                 });
 
             migrationBuilder.InsertData(
@@ -594,8 +595,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "Bonuses", "CreatedDate", "DeletedDate", "EmployeeId", "GrossSalary", "HourlyRate", "NetSalary", "Period", "Status", "TaxRate", "TotalHours", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 500m, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1216), null, 1, 16500m, 100m, 14850.0m, "2025-11", 1, 0.1m, 160m, null },
-                    { 2, 500m, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1288), null, 2, 16500m, 100m, 14850.0m, "2025-11", 1, 0.1m, 160m, null }
+                    { 1, 500m, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2565), null, 1, 16500m, 100m, 14850.0m, "2025-11", 1, 0.1m, 160m, null },
+                    { 2, 500m, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2590), null, 2, 16500m, 100m, 14850.0m, "2025-11", 1, 0.1m, 160m, null }
                 });
 
             migrationBuilder.InsertData(
@@ -603,8 +604,8 @@ namespace IK.DAL.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "EmployeeId", "EntryTime", "ExitTime", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1370), null, 1, new DateTime(2025, 11, 10, 9, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 11, 10, 18, 0, 0, 0, DateTimeKind.Unspecified), 7, null },
-                    { 2, new DateTime(2025, 12, 30, 17, 4, 22, 899, DateTimeKind.Local).AddTicks(1410), null, 2, new DateTime(2025, 11, 11, 9, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 11, 11, 18, 0, 0, 0, DateTimeKind.Unspecified), 7, null }
+                    { 1, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2784), null, 1, new DateTime(2025, 11, 10, 9, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 11, 10, 18, 0, 0, 0, DateTimeKind.Unspecified), 7, null },
+                    { 2, new DateTime(2026, 1, 31, 1, 19, 58, 91, DateTimeKind.Local).AddTicks(2822), null, 2, new DateTime(2025, 11, 11, 9, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 11, 11, 18, 0, 0, 0, DateTimeKind.Unspecified), 7, null }
                 });
 
             migrationBuilder.CreateIndex(

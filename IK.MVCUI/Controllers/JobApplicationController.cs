@@ -134,6 +134,7 @@ namespace IK.MVCUI.Controllers
                 formData.Add(new StringContent(model.ApplicantName), "ApplicantName");
                 formData.Add(new StringContent(model.Email), "Email");
                 formData.Add(new StringContent(model.PhoneNumber), "PhoneNumber");
+                formData.Add(new StringContent(model.Address), "Address");
                 formData.Add(new StringContent(model.PositionId.ToString()), "PositionId");
                 formData.Add(new StringContent("true"), "PrivacyAccepted");//Hardcode true gönderdik zaten kullanıcı işaretlemeden submit olamıyor. Aynı zamanda API tarafında da zorunlu.
 

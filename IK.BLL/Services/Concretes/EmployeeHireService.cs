@@ -72,17 +72,17 @@ namespace IK.BLL.Services.Concretes
                 LastName = app.ApplicantName.Contains(" ")
                     ? app.ApplicantName.Split(" ").Last()
                     : "-",
-                TCKN = "00000000000",
+                TCKN = app.TCKN,
 
                 Email = app.Email,
                 PhoneNumber = app.PhoneNumber,
-                Address = "-",
+                Address = app.Address,
                 StartDate = DateTime.Today,
-                BirthDate = DateTime.Today,
-                Salary = 0,
-                Gender = Gender.Unknown,
-                MaritalStatus = MaritalStatus.Unknown,
-                JobType = JobType.FullTime,
+                BirthDate = (DateTime)app.BirthDate,
+                Salary = (decimal)app.Salary,
+                Gender = (Gender)app.Gender,
+                MaritalStatus = (MaritalStatus)app.MaritalStatus,
+                JobType = (JobType)app.JobType,
 
                 AppUserId = user.Id,
                 PositionId = app.PositionId,
