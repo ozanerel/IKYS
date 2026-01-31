@@ -71,6 +71,7 @@ namespace IK.MVCUI.Areas.Employee.Controllers
                 PhoneNumber = employee.PhoneNumber,
                 BranchName = employee.Branch?.BranchName ?? "",
                 DepartmanName = employee.Departmant?.DepartmantName ?? "",
+                ImagePath = employee.ImagePath,
                 StartDate = employee.StartDate,
 
                 ChartLabels = chartLabels,

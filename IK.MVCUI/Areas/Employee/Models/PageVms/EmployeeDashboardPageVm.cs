@@ -10,6 +10,8 @@
         public string PhoneNumber { get; set; }
         public string BranchName { get; set; }
         public string DepartmanName { get; set; }
+
+        public string? ImagePath { get; set; }
         public DateTime StartDate { get; set; }
 
         // Chart verileri
