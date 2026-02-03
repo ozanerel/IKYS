@@ -1,12 +1,12 @@
 ﻿@using IK.ENTITIES.Enums
-@model IK.ENTITIES.Models.JobApplication
+@model IK.MVCUI.Areas.Admin.Models.PageVms.JobApplicationDetailsPageVm
 
 @{
 	ViewData["Title"] = "Başvuru Detay";
 	Layout = "~/Views/Shared/_AreaLayout.cshtml";
 }
 
-<h3>@Model.ApplicantName Başvurusu</h3>
+<h3>@Model.JobApplication.ApplicantName Başvurusu</h3>
 
 @if (TempData["Success"] != null)
 {
@@ -25,18 +25,18 @@
 <!-- BAŞVURU BİLGİLERİ -->
 <div class="card mt-3">
 	<div class="card-body">
-		<p><strong>Email:</strong> @Model.Email</p>
-		<p><strong>Telefon:</strong> @Model.PhoneNumber</p>
-		<p><strong>Pozisyon:</strong> @Model.Position?.PositionName</p>
-		<p><strong>Başvuru Tarihi:</strong> @Model.CreatedDate.ToShortDateString()</p>
+		<p><strong>Email:</strong> @Model.JobApplication.Email</p>
+		<p><strong>Telefon:</strong> @Model.JobApplication.PhoneNumber</p>
+		<p><strong>Pozisyon:</strong> @Model.JobApplication.Position?.PositionName</p>
+		<p><strong>Başvuru Tarihi:</strong> @Model.JobApplication.CreatedDate.ToShortDateString()</p>
 
 		<p>
 			<strong>Durum:</strong>
-			@if (Model.ApplicationStatus == ApplicationStatus.Pending)
+			@if (Model.JobApplication.ApplicationStatus == ApplicationStatus.Pending)
 			{
 				<span class="badge bg-warning">Beklemede</span>
 			}
-			else if (Model.ApplicationStatus == ApplicationStatus.Approved)
+			else if (Model.JobApplication.ApplicationStatus == ApplicationStatus.Approved)
 			{
 				<span class="badge bg-success">Onaylandı</span>
 			}
@@ -48,7 +48,7 @@
 
 		<p>
 			<strong>CV:</strong>
-			<a href="http://localhost:5171/cv/@Model.CVFilePath" target="_blank" class="btn btn-secondary btn-sm">
+			<a href="http://localhost:5171/cv/@Model.JobApplication.CVFilePath" target="_blank" class="btn btn-secondary btn-sm">
 				CV Görüntüle
 			</a>
 		</p>
@@ -56,7 +56,7 @@
 </div>
 
 <!-- SADECE PENDING İKEN GÖZÜKECEK ONAY FORMU -->
-@if (Model.ApplicationStatus == ApplicationStatus.Pending)
+@if (Model.JobApplication.ApplicationStatus == ApplicationStatus.Pending)
 {
 	<form asp-area="Admin" asp-controller="JobApplication" asp-action="Approve" method="post" class="card mt-4">
 		<div class="card-header bg-success text-white">
@@ -64,11 +64,16 @@
 		</div>
 
 		<div class="card-body">
-			<input type="hidden" name="JobApplicationId" value="@Model.Id" />
+			<input type="hidden" name="JobApplicationId" value="@Model.JobApplication.Id" />
 
 			<div class="mb-3">
 				<label class="form-label">TCKN</label>
 				<input name="TCKN" class="form-control" required />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Kullanıcı Adı</label>
+				<input name="UserName" class="form-control" required />
 			</div>
 
 			<div class="mb-3">
@@ -80,6 +85,32 @@
 				<label class="form-label">Maaş</label>
 				<input name="Salary" type="number" class="form-control" required />
 			</div>
+
+			<div class="mb-3">
+				<label>Şube</label>
+				<select name="BranchId" class="form-select" required>
+					@foreach (var b in (SelectList)ViewBag.Branches)
+					{
+						<option value="@b.Value">@b.Text</option>
+					}
+				</select>
+			</div>
+
+			@* <div class="mb-3">
+				<label>Departman</label>
+				<select asp-for="HireVm.DepartmanId" asp-items="ViewBag.Departmants" class="form-select" required></select>
+			</div> *@
+
+			<div class="mb-3">
+				<label>Departman</label>
+				<select name="DepartmanId" class="form-select" required>
+					@foreach (var d in (SelectList)ViewBag.Departmants)
+					{
+						<option value="@d.Value">@d.Text</option>
+					}
+				</select>
+			</div>
+			
 
 			<div class="mb-3">
 				<label class="form-label">Cinsiyet</label>
@@ -118,7 +149,7 @@
 			</button>
 
 			<a asp-area="Admin" asp-controller="JobApplication" asp-action="Reject"
-			   asp-route-id="@Model.Id"
+			   asp-route-id="@Model.JobApplication.Id"
 			   class="btn btn-danger ms-2">
 				Reddet
 			</a>
@@ -127,14 +158,14 @@
 }
 
 <!-- ONAYLANDI / REDDEDİLDİ MESAJI -->
-@if (Model.ApplicationStatus == ApplicationStatus.Approved)
+@if (Model.JobApplication.ApplicationStatus == ApplicationStatus.Approved)
 {
 	<div class="alert alert-success mt-4">
 		Bu başvuru başarıyla onaylandı ve çalışan oluşturuldu.
 	</div>
 }
 
-@if (Model.ApplicationStatus == ApplicationStatus.Rejected)
+@if (Model.JobApplication.ApplicationStatus == ApplicationStatus.Rejected)
 {
 	<div class="alert alert-danger mt-4">
 		Bu başvuru reddedildi.

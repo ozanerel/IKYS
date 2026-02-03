@@ -1,4 +1,5 @@
-﻿using IK.ENTITIES.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using IK.ENTITIES.Enums;
 
 namespace IK.MVCUI.Areas.Admin.Models.PageVms
 {
@@ -11,7 +12,11 @@ namespace IK.MVCUI.Areas.Admin.Models.PageVms
         public string PhoneNumber { get; set; }
 
         // ADMIN DOLDURUR
+        [Required]
         public string TCKN { get; set; }
+
+        [Required]
+        public string UserName { get; set; }
         public DateTime BirthDate { get; set; }
         public decimal Salary { get; set; }
 
@@ -20,7 +25,10 @@ namespace IK.MVCUI.Areas.Admin.Models.PageVms
         public JobType JobType { get; set; }
 
         public int PositionId { get; set; }
+
+        [Required]
         public int DepartmanId { get; set; }
+        [Required]
         public int BranchId { get; set; }
     }
 }

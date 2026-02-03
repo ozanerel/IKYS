@@ -11,6 +11,7 @@ using IK.MVCUI.Areas.Admin.Models.PageVms;
 using Newtonsoft.Json;
 using System.Text;
 using IK.MVCUI.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IK.MVCUI.Areas.Admin.Controllers
 {
@@ -23,16 +24,20 @@ namespace IK.MVCUI.Areas.Admin.Controllers
         private readonly IEmployeeHireService _employeeHireService;
         private readonly IPositionManager _positionManager;
         private readonly IJobApplicationManager _jobApplicationManager;
+        private readonly IDepartmantManager _departmantManager;
+        private readonly IBranchManager _branchManager;
 
 
 
-        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeHireService employeeHireService, IHttpClientFactory clientFactory, IPositionManager positionManager, IJobApplicationManager jobApplicationManager)
+        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeHireService employeeHireService, IHttpClientFactory clientFactory, IPositionManager positionManager, IJobApplicationManager jobApplicationManager, IDepartmantManager departmantManager, IBranchManager branchManager)
         {
             _clientFactory = clientFactory;
             _userManager = userManager;
             _employeeHireService = employeeHireService;
             _positionManager = positionManager;
             _jobApplicationManager = jobApplicationManager;
+            _departmantManager = departmantManager;
+            _branchManager = branchManager;
         }
 
         private HttpClient ApiClient()
@@ -72,7 +77,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             return View(entityList);
         }
 
-       
+
 
         // 2) DETAY SAYFASI
         public async Task<IActionResult> Details(int id)
@@ -87,109 +92,34 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             var json = await response.Content.ReadAsStringAsync();
             var app = JsonConvert.DeserializeObject<JobApplication>(json);
 
+            var vm = new JobApplicationDetailsPageVm
+            {
+                JobApplication = app,
+                HireVm = new HireEmployeePageVm
+                {
+                    JobApplicationId = app.Id,
+                }
+            };
+
+            ViewBag.Branches = new SelectList(await _branchManager.GetAllAsync(),
+                "Id",
+                "BranchName"
+            );
+
+            ViewBag.Departmants = new SelectList(await _departmantManager.GetAllAsync(),
+                "Id",
+                "DepartmantName"
+            );
 
 
-            return View(app);
+
+            return View(vm);
         }
 
         // 3) ONAYLA
         [HttpPost]
         public async Task<IActionResult> Approve(HireEmployeePageVm vm)
         {
-            #region Eski
-            // 1️⃣ MVC DB'den JobApplication'ı çek
-            //var jobApplication = await _jobApplicationManager.GetByIdAsync(vm.JobApplicationId);
-
-            //if (jobApplication == null)
-            //    return NotFound();
-
-            //if (jobApplication.ApplicationStatus == ApplicationStatus.Approved)
-            //{
-            //    TempData["Error"] = "Bu başvuru zaten onaylanmış.";
-            //    return RedirectToAction("Details", new { id = vm.JobApplicationId });
-            //}
-
-            //// 2️⃣ Admin alanlarını doldur
-            //jobApplication.TCKN = vm.TCKN;
-            //jobApplication.BirthDate = vm.BirthDate;
-            //jobApplication.Salary = vm.Salary;
-            //jobApplication.Gender = vm.Gender;
-            //jobApplication.MaritalStatus = vm.MaritalStatus;
-            //jobApplication.JobType = vm.JobType;
-
-            //jobApplication.ApplicationStatus = ApplicationStatus.Approved;
-            //await _jobApplicationManager.UpdateAsync(jobApplication);
-
-
-
-            //try
-            //{
-            //    // 3️⃣ API'ye SADECE STATUS güncellemesi gönder
-            //    await ApiClient().PutAsync(
-            //        $"api/JobApplications/{vm.JobApplicationId}/approve",
-            //        null
-            //    );
-
-            //    // 4️⃣ MVC tarafında işe alım (EMAIL %100 DOLU)
-            //    await _employeeHireService.HireFromJobApplication(jobApplication);
-
-            //    TempData["Success"] = "Başvuru başarıyla onaylandı.";
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    TempData["Error"] = ex.Message;
-
-            //}
-
-            //return RedirectToAction("Details", new { id = vm.JobApplicationId }); 
-            #endregion
-
-            #region Eski_2
-            //// 1️⃣ API’den başvuruyu al
-            //var response = await ApiClient().GetAsync($"api/JobApplications/{vm.JobApplicationId}");
-            //if (!response.IsSuccessStatusCode)
-            //    return NotFound();
-
-            //var json = await response.Content.ReadAsStringAsync();
-            //var application = JsonConvert.DeserializeObject<JobApplication>(json);
-
-            //if (application.ApplicationStatus == ApplicationStatus.Approved)
-            //{
-            //    TempData["Error"] = "Bu başvuru zaten onaylanmış.";
-            //    return RedirectToAction("Details", new { id = vm.JobApplicationId });
-            //}
-
-            //// 2️⃣ VM → JobApplication (EmployeeHireService için)
-            //application.TCKN = vm.TCKN;
-            //application.BirthDate = vm.BirthDate;
-            //application.Salary = vm.Salary;
-            //application.Gender = vm.Gender;
-            //application.MaritalStatus = vm.MaritalStatus;
-            //application.JobType = vm.JobType;
-
-            //// 3️⃣ API'de status güncelle
-            //var approveResponse = await ApiClient().PutAsync(
-            //    $"api/JobApplications/{vm.JobApplicationId}/approve",
-            //    null
-            //);
-
-            //if (!approveResponse.IsSuccessStatusCode)
-            //{
-            //    TempData["Error"] = "Başvuru onaylanırken API hatası oluştu.";
-            //    return RedirectToAction("Details", new { id = vm.JobApplicationId });
-            //}
-
-            ////application.ApplicationStatus = ApplicationStatus.Approved;
-
-            //// 4️⃣ Employee oluştur
-            //await _employeeHireService.HireFromJobApplication(application);
-
-            //TempData["Success"] = "Başvuru onaylandı.";
-
-            //return RedirectToAction("Details", new { id = vm.JobApplicationId });
-
-            #endregion
 
             // 1️ API’den başvuruyu al
             var response = await ApiClient().GetAsync($"api/JobApplications/{vm.JobApplicationId}");
@@ -209,16 +139,19 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             var approveRequest = new
             {
                 TCKN = vm.TCKN,
+                UserName = vm.UserName,
                 BirthDate = vm.BirthDate,
                 Salary = vm.Salary,
                 Gender = vm.Gender,
                 MaritalStatus = vm.MaritalStatus,
                 JobType = vm.JobType,
+                BranchId = vm.BranchId,
+                DepartmanId = vm.DepartmanId
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(approveRequest),Encoding.UTF8,"application/json");
-            
-          
+            var content = new StringContent(JsonConvert.SerializeObject(approveRequest), Encoding.UTF8, "application/json");
+
+
 
             // 3️ API'de status güncelle
             var approveResponse = await ApiClient().PutAsync(
@@ -228,7 +161,9 @@ namespace IK.MVCUI.Areas.Admin.Controllers
 
             if (!approveResponse.IsSuccessStatusCode)
             {
-                TempData["Error"] = "Başvuru onaylanırken API hatası oluştu.";
+                var apiError = await approveResponse.Content.ReadAsStringAsync();
+                TempData["Error"] = apiError;
+                //TempData["Error"] = "Başvuru onaylanırken API hatası oluştu.";
                 return RedirectToAction("Details", new { id = vm.JobApplicationId });
             }
 
@@ -240,7 +175,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             //application.ApplicationStatus = ApplicationStatus.Approved;
 
             // 4️ Employee oluştur
-            await _employeeHireService.HireFromJobApplication(approvedApplication);
+            await _employeeHireService.HireFromJobApplication(approvedApplication, vm.UserName, vm.DepartmanId, vm.BranchId);
 
             TempData["Success"] = "Başvuru onaylandı.";
 

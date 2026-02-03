@@ -4,11 +4,11 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
+				@* <div class="sb-sidenav-menu-heading">Core</div>
                 <a class="nav-link" href="index.html">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
-                </a>
+                </a> *@
 
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -41,7 +41,7 @@
                 @* Admin Menüsü *@
                 @if (User.IsInRole("Admin"))
                 {
-                    <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
@@ -69,15 +69,19 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-sitemap"></i></div>
                         Departman Yönetimi
                     </a>
-                    <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index">
+                   @*  <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                         Kullanıcı Yönetimi
-                    </a>
+                    </a> *@
                 }
                 
                 @* Employee Menüsü *@
                 @if (User.IsInRole("Employee"))
                 {
+                    <a class="nav-link" asp-area="Employee" asp-controller="Home" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
                     <a class="nav-link" asp-area="Employee" asp-controller="WorkHour" asp-action="Index">
                         <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
                         Mesai Bilgileri

@@ -24,8 +24,10 @@ namespace IK.BLL.Services.Concretes
             _positionManager = positionManager;
         }
 
-        public async Task HireFromJobApplication(JobApplication app)
+        public async Task HireFromJobApplication(JobApplication app,string userName, int departmantId, int branchId)
         {
+            //DepartmaId gelmediği için kontrol
+            //Console.WriteLine($"BranchId : {branchId},DepartmantId : {departmantId}");
 
             //Email kontrol
             if (string.IsNullOrWhiteSpace(app.Email))
@@ -39,7 +41,7 @@ namespace IK.BLL.Services.Concretes
             // 1) AppUser oluştur
             var user = new AppUser
             {
-                UserName = app.Email,
+                UserName = userName,
                 Email = app.Email,
                 EmailConfirmed = true,
                 CreatedDate = DateTime.Now,
@@ -62,8 +64,8 @@ namespace IK.BLL.Services.Concretes
             // 2) Position → Departman → Branch çöz
             var position = await _positionManager.GetByIdAsync(app.PositionId);
 
-            int departmantId = position.DepartmantId;
-            int branchId = position.Departmant.BranchId;
+            //int departmantId = position.DepartmantId;
+            //int branchId = position.Departmant.BranchId;
 
             // 3) Employee oluştur
             var employee = new Employee
