@@ -28,13 +28,13 @@ namespace IK.DAL.BogusHandling
             AppUser appUser = new()
             {
                 Id = 1,
-                UserName = "ozan",
-                Email = "ozan@ik.com",
-                NormalizedEmail ="OZAN@IK.COM",
-                NormalizedUserName = "OZAN",
+                UserName = "admin",
+                Email = "admin@ik.com",
+                NormalizedEmail ="ADMIN@IK.COM",
+                NormalizedUserName = "ADMIN",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                PasswordHash = passwordHasher.HashPassword(null, "Ozan1234"),
+                PasswordHash = passwordHasher.HashPassword(null, "Admin1234"),
             };
 
             modelBuilder.Entity<AppUser>().HasData(appUser);
@@ -63,13 +63,13 @@ namespace IK.DAL.BogusHandling
             AppUser appUser2 = new()
             {
                 Id = 2,
-                UserName = "ahmet",
-                Email = "ahmet@ik.com",
-                NormalizedEmail = "AHMET@IK.COM",
-                NormalizedUserName = "AHMET",
+                UserName = "ozan",
+                Email = "ozan@ik.com",
+                NormalizedEmail = "OZAN@IK.COM",
+                NormalizedUserName = "OZAN",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                PasswordHash = passwordHasher.HashPassword(null, "Ahmet1234"),
+                PasswordHash = passwordHasher.HashPassword(null, "Ozan1234"),
             };
 
             modelBuilder.Entity<AppUser>().HasData(appUser2);

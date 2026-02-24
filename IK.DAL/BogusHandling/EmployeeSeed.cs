@@ -35,29 +35,8 @@ namespace IK.DAL.BogusHandling
                 BranchId = 1
             };
 
-            Employee emp2 = new()
-            {
-                Id = 2,
-                FirstName = "Ahmet",
-                LastName = "Baykara",
-                TCKN = "12345678902",
-                BirthDate = new DateTime(1992, 5, 10),
-                Gender = Gender.Male,
-                MaritalStatus = MaritalStatus.Married,
-                PhoneNumber = "05000000002",
-                Email = "ahmet@ik.com",
-                Address = "Ankara",
-                StartDate = DateTime.Now.AddYears(-1),
-                Salary = 9000,
-                JobType = JobType.FullTime,
-                ImagePath = "/images/default.png",
-                AppUserId = 2,
-                DepartmanId = 2,
-                PositionId = 2,
-                BranchId = 2
-            };
 
-            modelBuilder.Entity<Employee>().HasData(emp1, emp2);
+            modelBuilder.Entity<Employee>().HasData(emp1);
         }
     }
 }

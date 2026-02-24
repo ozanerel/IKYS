@@ -13,6 +13,7 @@ namespace IK.BLL.Managers.Abstracts
         Task CreateAsync(Employee employee);
         Task UpdateAsync(Employee employee);
         Task UpdateSalaryAsync(int employeeId, decimal newSalary);
-        
+        Task HireFromJobApplication(JobApplication app, string userName, int departmanId, int branchId);
+
     }
 }

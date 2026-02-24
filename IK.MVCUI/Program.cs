@@ -18,7 +18,6 @@ builder.Services.AddDbContextService(builder.Configuration);
 builder.Services.AddIdentityService();
 builder.Services.AddRepositoryService();
 builder.Services.AddManagerService();
-builder.Services.AddBusinessService();
 builder.Services.AddHttpClient<IJobApplicationApiService,JobApplicationApiService>(opt =>
 {
     opt.BaseAddress = new Uri("http://localhost:5171/api/");//Tüketilecek API'nin base adresi

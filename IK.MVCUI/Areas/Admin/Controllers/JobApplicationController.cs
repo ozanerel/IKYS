@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using IK.BLL.Managers.Concretes;
 using Microsoft.AspNetCore.Identity;
 using IK.ENTITIES.Models;
-using IK.BLL.Services.Concretes;
-using IK.BLL.Services.Abstracts;
 using IK.MVCUI.Areas.Admin.Models.PageVms;
 using Newtonsoft.Json;
 using System.Text;
@@ -21,7 +19,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IEmployeeHireService _employeeHireService;
+        private readonly IEmployeeManager _employeeManager;
         private readonly IPositionManager _positionManager;
         private readonly IJobApplicationManager _jobApplicationManager;
         private readonly IDepartmantManager _departmantManager;
@@ -29,11 +27,11 @@ namespace IK.MVCUI.Areas.Admin.Controllers
 
 
 
-        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeHireService employeeHireService, IHttpClientFactory clientFactory, IPositionManager positionManager, IJobApplicationManager jobApplicationManager, IDepartmantManager departmantManager, IBranchManager branchManager)
+        public JobApplicationController(UserManager<AppUser> userManager, IEmployeeManager employeeManager, IHttpClientFactory clientFactory, IPositionManager positionManager, IJobApplicationManager jobApplicationManager, IDepartmantManager departmantManager, IBranchManager branchManager)
         {
             _clientFactory = clientFactory;
             _userManager = userManager;
-            _employeeHireService = employeeHireService;
+            _employeeManager = employeeManager;
             _positionManager = positionManager;
             _jobApplicationManager = jobApplicationManager;
             _departmantManager = departmantManager;
@@ -175,7 +173,7 @@ namespace IK.MVCUI.Areas.Admin.Controllers
             //application.ApplicationStatus = ApplicationStatus.Approved;
 
             // 4️ Employee oluştur
-            await _employeeHireService.HireFromJobApplication(approvedApplication, vm.UserName, vm.DepartmanId, vm.BranchId);
+            await _employeeManager.HireFromJobApplication(approvedApplication, vm.UserName, vm.DepartmanId, vm.BranchId);
 
             TempData["Success"] = "Başvuru onaylandı.";
 

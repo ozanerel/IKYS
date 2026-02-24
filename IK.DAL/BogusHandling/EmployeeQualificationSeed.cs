@@ -25,19 +25,8 @@ namespace IK.DAL.BogusHandling
                 EmployeeId = 1
             };
 
-            EmployeeQualification eq2 = new()
-            {
-                Id = 2,
-                Education = "Üniversite",
-                EducationLevel = EducationLevel.BachelorDegree,
-                Experience = "3 yıl",
-                Skills = "C#, ASP.NET",
-                Languages = "İngilizce",
-                Certifications = "MCP",
-                EmployeeId = 2
-            };
 
-            modelBuilder.Entity<EmployeeQualification>().HasData(eq1, eq2);
+            modelBuilder.Entity<EmployeeQualification>().HasData(eq1);
         }
     }
 }

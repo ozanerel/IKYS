@@ -27,22 +27,8 @@ namespace IK.DAL.BogusHandling
                 //Deductions = 500
             };
 
-            Payroll pay2 = new()
-            {
-                Id = 2,
-                EmployeeId = 2,
-                Period = "2025-11",
-                TotalHours = 160,
-                HourlyRate = 100,
-                TaxRate = 0.1m,
-                Bonuses = 500,
-                //GrossSalary = 9000,
-                //NetSalary = 8200,
-                //Bonuses = 300,
-                //Deductions = 400
-            };
 
-            modelBuilder.Entity<Payroll>().HasData(pay1, pay2);
+            modelBuilder.Entity<Payroll>().HasData(pay1);
         }
     }
 }

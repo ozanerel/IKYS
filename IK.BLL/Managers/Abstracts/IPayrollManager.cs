@@ -22,6 +22,8 @@ namespace IK.BLL.Managers.Abstracts
 
         Task CancelPayrollAsync(int id);
 
+        byte[] GeneratePayrollPdf(Payroll payroll);
+
 
     }
 }

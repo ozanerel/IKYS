@@ -22,17 +22,9 @@ namespace IK.DAL.BogusHandling
                 Notes = "Başarılı performans"
             };
 
-            CareerPlan cp2 = new()
-            {
-                Id = 2,
-                EmployeeId = 2,
-                CurrentPositionId = 2,
-                TargetPositionId = 2,
-                PlannedPromotionDate = DateTime.Now.AddMonths(12),
-                Notes = "Tecrübeyi artıracak"
-            };
+            
 
-            modelBuilder.Entity<CareerPlan>().HasData(cp1, cp2);
+            modelBuilder.Entity<CareerPlan>().HasData(cp1);
         }
     }
 }
